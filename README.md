@@ -48,5 +48,3 @@ On the right side users will have 3D controls available to rotate the camera man
 ### Day 4
     - Polish the viewport controls
     - Fix and permorfance bugs encoured while programming with Three.js
-
-
