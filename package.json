@@ -1,7 +1,7 @@
 {
-  "name": "js_project_skeleton",
+  "name": "3d_automaton_visualizer",
   "version": "1.0.0",
-  "description": "skeleton for new JS project",
+  "description": "Victor Crispin's Javascript Project",
   "main": "index.js",
   "browserslist": [
     "last 1 version",
@@ -11,12 +11,19 @@
   ],
   "scripts": {
     "start": "webpack-dev-server --config webpack.dev.js",
-    "webpack:watch": "webpack --watch --config webpack.dev.js",
-    "webpack:build": "webpack --config webpack.prod.js  --optimize-minimize"
+    "watch": "webpack --watch --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js  --optimize-minimize"
   },
-  "author": "mrcjbradley",
-  "license": "ISC",
-  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vcjr/3D-Cellular-Automata-Visualizer.git"
+  },
+  "author": "Victor Crispin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vcjr/3D-Cellular-Automata-Visualizer/issues"
+  },
+  "homepage": "https://github.com/vcjr/3D-Cellular-Automata-Visualizer#readme",
   "devDependencies": {
     "@babel/core": "^7.11.1",
     "@babel/preset-env": "^7.11.0",
@@ -36,5 +43,8 @@
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0",
     "webpack-merge": "^5.1.1"
+  },
+  "dependencies": {
+    "three": "^0.119.1"
   }
 }

@@ -3,26 +3,26 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const outputDir = "./dist";
 
 module.exports = {
-  entry: path.resolve(__dirname, "src", "index.js"), //
+  entry: path.resolve(__dirname, "src", "index.js"), 
   output: {
     path: path.join(__dirname, outputDir),
     filename: "[name].js",
-    publicPath: "/dist/"
+    publicPath: "/dist/",
   },
   resolve: {
-    extensions: [".js"]
+    extensions: [".js"],
   },
   module: {
     rules: [
       {
-        test: /\.js$/, 
+        test: /\.js$/,
         use: {
           loader: "babel-loader",
           options: {
             presets: ["@babel/preset-env"],
-            exclude: /node_modules/
-          } 
-        }
+            exclude: /node_modules/,
+          },
+        },
       },
       {
         test: /\.css$/,
@@ -31,12 +31,12 @@ module.exports = {
             loader: MiniCssExtractPlugin.loader,
             options: {
               publicPath: "../",
-              hmr: process.env.NODE_ENV === "development"
-            }
+              hmr: process.env.NODE_ENV === "development",
+            },
           },
           "css-loader",
-          "postcss-loader"
-        ]
+          "postcss-loader",
+        ],
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
@@ -46,10 +46,10 @@ module.exports = {
             options: {
               name: "[name].[ext]",
               outputPath: "images/",
-              publicPath: "images/"
-            }
-          }
-        ]
+              publicPath: "images/",
+            },
+          },
+        ],
       },
       {
         test: /\.scss/,
@@ -58,22 +58,22 @@ module.exports = {
             loader: MiniCssExtractPlugin.loader,
             options: {
               publicPath: "../",
-              hmr: process.env.NODE_ENV === "development"
-            }
+              hmr: process.env.NODE_ENV === "development",
+            },
           },
           "css-loader",
           "sass-loader",
-          "postcss-loader"
-        ]
-      }
-    ]
+          "postcss-loader",
+        ],
+      },
+    ],
   },
   plugins: [
     new MiniCssExtractPlugin({
       filename: "[name].css",
       chunkFilename: "[id].css",
-      ignoreOrder: false
+      ignoreOrder: false,
     }),
-    require("autoprefixer")
-  ]
+    require("autoprefixer"),
+  ],
 };
