@@ -12,10 +12,16 @@ export const makeInstance = (geometry, color, x, scene) => {
   return cube;
 };
 
-export const makeCamera = (fov = 75, aspect = 2, near = 0.1, far = 6) => {
+export const makeCamera = (fov = 75, aspect = 2, near = 0.1, far = 1000) => {
   return new THREE.PerspectiveCamera(fov, aspect, near, far);
 };
 
 export const basicGeoCube = (cubeWidth = 1, cubeHeight = 1, cubeDepth = 1) => {
   return new THREE.BoxGeometry(cubeWidth, cubeHeight, cubeDepth);
+};
+
+export const directionalLight = ({color = 0xFFFFFF, intensity = 1, position = [-1, 2, 4], scene}) => {
+  const light = new THREE.DirectionalLight(color, intensity);
+  light.position.set(...position);
+  scene.add(light);
 };

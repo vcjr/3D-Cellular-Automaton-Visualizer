@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const scene = new THREE.Scene();
 
     const camera = GraphicUtils.makeCamera();
-    camera.position.z = 2;
+    camera.position.z = 10;
 
     const cubeGeometry = GraphicUtils.basicGeoCube();
 
@@ -24,36 +24,55 @@ document.addEventListener("DOMContentLoaded", () => {
 
     renderer.render(scene, camera);
 
+    const resizeviewportToDisplaySize = (renderer) => {
+      const viewport = renderer.domElement;
+      const width = viewport.clientWidth;
+      const height = viewport.clientHeight;
+
+      const forceResize = viewport.width !== width || viewport.height !== height;
+
+      if (forceResize) {
+        renderer.setSize(width, height, false);
+      }
+
+      return forceResize;
+    };
+
     const render = time => {
       time *= 0.001;
-    
+      
+      if (resizeviewportToDisplaySize(renderer)) {
+        const viewport = renderer.domElement;
+        camera.aspect = viewport.clientWidth / viewport.clientHeight;
+        camera.updateProjectionMatrix();
+      }
+      
       cells.forEach((cube, ndx) => {
 
         const speed = 1 + ndx * 0.1;
         const rot = time * speed;
 
-        // cube.rotation.x = rot;
-        // cube.rotation.y = rot;
+        cube.rotation.x = rot;
+        cube.rotation.y = rot;
       });
 
-    
       renderer.render(scene, camera);
     
       requestAnimationFrame(render);
     };
     
-    const light = () => {
-      const color = 0xFFFFFF;
-      const intensity = 1;
-      const light = new THREE.DirectionalLight(color, intensity);
+    GraphicUtils.directionalLight({scene: scene});
+    // const light = () => {
+    //   const color = 0xFFFFFF;
+    //   const intensity = 1;
+    //   const light = new THREE.DirectionalLight(color, intensity);
 
-      light.position.set(-1, 2, 4);
-      scene.add(light);
-    };
+    //   light.position.set(-1, 2, 4);
+    //   scene.add(light);
+    // };
 
-    light();
+    // light();
     requestAnimationFrame(render);
-
 
   };
 
