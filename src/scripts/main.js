@@ -14,8 +14,9 @@ class Main {
     this.scene = new THREE.Scene();
     this.camera = this.createCamera(options.camera);
     this.world = this.grid(options.worldSize, options.cubeGeometry, this.scene);
-    debugger // this.world shoud have created a matrix of cube cells 
+    // debugger // this.world shoud have created a matrix of cube cells 
 
+    // remember to abstract this later on to a light we can manipuate inside the main class
     GraphicUtils.directionalLight({scene: this.scene});
     // No full render cycle yet but should display the cubes based on their positions
     // this.renderer.render(this.scene, this.camera);
@@ -37,27 +38,42 @@ class Main {
     return new Grid(worldSize, cubeGeometry, scene);
   }
 
-  resizeviewportToDisplaySize(renderer) {
-    const viewport = renderer.domElement;
-    const width = viewport.clientWidth;
-    const height = viewport.clientHeight;
+  // resizeviewportToDisplaySize() {
+  //   const viewport = this.renderer.domElement;
+  //   const width = viewport.clientWidth;
+  //   const height = viewport.clientHeight;
 
-    const forceResize = viewport.width !== width || viewport.height !== height;
+  //   const forceResize = viewport.width !== width || viewport.height !== height;
 
-    if (forceResize) {
-      renderer.setSize(width, height, false);
-    }
+  //   if (forceResize) {
+  //     this.renderer.setSize(width, height, false);
+  //   }
 
-    return forceResize;
-  }
+  //   return forceResize;
+  // }
 
   render(time){
-    time *= 0.002;
+    time *= 0.001;
     
-    if (this.resizeviewportToDisplaySize(renderer)) {
+    const resizeviewportToDisplaySize = (renderer) => {
       const viewport = renderer.domElement;
-      camera.aspect = viewport.clientWidth / viewport.clientHeight;
-      camera.updateProjectionMatrix();
+      const width = viewport.clientWidth;
+      const height = viewport.clientHeight;
+  
+      const forceResize = viewport.width !== width || viewport.height !== height;
+  
+      if (forceResize) {
+        this.renderer.setSize(width, height, false);
+      }
+      // debugger
+      return forceResize;
+    };
+
+    // debugger // check what this.renderer is
+    if (resizeviewportToDisplaySize(this.renderer)) {
+      const viewport = this.renderer.domElement;
+      this.camera.aspect = viewport.clientWidth / viewport.clientHeight;
+      this.camera.updateProjectionMatrix();
     }
     
     this.world.cubes.forEach((cube, ndx) => {
@@ -71,12 +87,14 @@ class Main {
 
     this.renderer.render(this.scene, this.camera);
   
-    requestAnimationFrame(render);
+    requestAnimationFrame(this.render.bind(this));
   }
 
   run(){
-    this.renderer.render(this.scene, this.camera);
+    // this.renderer.render(this.scene, this.camera);
     // Will be a run function to excute render
+    // debugger
+    this.render();
   }
 
 }

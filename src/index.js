@@ -8,15 +8,15 @@ document.addEventListener("DOMContentLoaded", () => {
       posX: 0,
       posY: 0,
       posZ: 10,
-      fov: 100, 
+      fov: 75, 
       aspect: 2, 
       near: 0.1, 
       far: 1000
     },
     cubeGeometry: {
-      cubeWidth: 1,
-      cubeHeight: 1,
-      cubeDepth: 1
+      cubeWidth: 0.5,
+      cubeHeight: 0.5,
+      cubeDepth: 0.5
     },
     worldSize: 3
   };
