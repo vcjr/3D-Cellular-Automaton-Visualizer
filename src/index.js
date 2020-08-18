@@ -5,9 +5,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const options = {
     camera: {
-      posX: 1,
-      posY: 0,
-      posZ: 10,
+      posX: 2.5,
+      posY: 2.5,
+      posZ: 20,
       fov: 75, 
       aspect: 2, 
       near: 0.1, 
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
       cubeHeight: 0.8,
       cubeDepth: 0.8
     },
-    worldSize: 3,
+    worldSize: 8,
     cellSpacing: {
       spacingX: 0,
       spacingY: 0,

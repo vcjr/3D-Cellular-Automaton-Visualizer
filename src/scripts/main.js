@@ -37,20 +37,6 @@ class Main {
     return new Grid(worldSize, cubeGeometry, cellSpacing, scene);
   }
 
-  // resizeviewportToDisplaySize() {
-  //   const viewport = this.renderer.domElement;
-  //   const width = viewport.clientWidth;
-  //   const height = viewport.clientHeight;
-
-  //   const forceResize = viewport.width !== width || viewport.height !== height;
-
-  //   if (forceResize) {
-  //     this.renderer.setSize(width, height, false);
-  //   }
-
-  //   return forceResize;
-  // }
-
   render(time){
     time *= 0.001;
     
@@ -80,7 +66,7 @@ class Main {
       const speed = 1 + ndx * 0.1;
       const rot = time * speed;
 
-      cube.rotation.x = rot;
+      // cube.rotation.x = rot;
       // cube.rotation.y = rot;
       // cube.rotation.z = rot;
     });

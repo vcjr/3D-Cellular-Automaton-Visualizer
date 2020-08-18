@@ -14,7 +14,7 @@ class Grid {
       cellOptions.cubeDepth
     );
 
-    let cells = MathUtils.create3DGrid(Cell, 3);
+    let cells = MathUtils.create3DGrid(Cell, size);
 
     // This will create instances of each cell and add them each to the scene
     // this.cubes is now an array of cells of cube that we have added to our scene and we can render
