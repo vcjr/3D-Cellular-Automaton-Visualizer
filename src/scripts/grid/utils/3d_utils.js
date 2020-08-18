@@ -28,7 +28,12 @@ export const makeCube = (geometry, cell, scene) => {
   return cube;
 };
 
-export const makeCamera = (fov = 75, aspect = 2, near = 0.1, far = 1000) => {
+// export const makeCamera = (fov = 75, aspect = 2, near = 0.1, far = 1000) => {
+//   return new THREE.PerspectiveCamera(fov, aspect, near, far);
+// };
+
+export const makeCamera = (options) => {
+  const {fov, aspect, near, far} = options;
   return new THREE.PerspectiveCamera(fov, aspect, near, far);
 };
 
