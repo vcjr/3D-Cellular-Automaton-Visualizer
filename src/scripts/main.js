@@ -1,12 +1,53 @@
 import * as THREE from "three";
 import * as GraphicUtils from "./scripts/3d_utils";
 
+
+const options = {
+  camera: {
+    posX: 0,
+    posY: 0,
+    posZ: 10
+  },
+  cubeGeometry: {
+    cubeWidth: 1,
+    cubeHeight: 1,
+    cubeDepth: 1
+  }
+};
+
 class Main {
-  constructor(element){
-    this.canvas = document.getElementById(element);
+  constructor(options){
+    //NOTE: I need the three basic things a Scene, a Camera, and objects to render
+    const {posX, posY, posZ} = options.camera;
+
+    const canvas = document.getElementById(element);
+    this.renderer = new THREE.WebGLRenderer({ canvas });
+    this.scene = new THREE.scene();
+
+    this.camera = this.createCamera({ x: posX, y: posY, z: posZ });
+
+    this.cells(options.cubeGeometry);
 
   }
 
+  // Function to initialize a perspective camera
+  createCamera(startingPos) {
+    const {x, y, z} = startingPos;
+    this.camera = GraphicUtils.makeCamera();
+    this.camera.position.x = x;
+    this.camera.position.y = y;
+    this.camera.position.z = z;
+  }
+
+  cells(geo, sizeOfGrid = 3){
+    const cubeGeometry = GraphicUtils.basicGeoCube(geo.cubeWidth, geo.cubeHeight, geo.cubeDepth);
+
+    let grid = 
+  }
+
+  run(){
+
+  }
 
 }
 
@@ -15,24 +56,29 @@ export default Main;
 const viewport = () => {
 
   // Scene Setup
-  const canvas = document.getElementById("visualizer-viewport");
-  const renderer = new THREE.WebGLRenderer({ canvas });
+  const canvas = document.getElementById("visualizer-viewport"); // DONE
+  const renderer = new THREE.WebGLRenderer({ canvas }); // DONE
 
   const scene = new THREE.Scene();
 
+  // Camera Stup
   const camera = GraphicUtils.makeCamera();
   camera.position.z = 10;
 
+  // Basic Cube Geometry Setup
   const cubeGeometry = GraphicUtils.basicGeoCube();
 
+  // Initial Cell Setup
   const cells = [
     GraphicUtils.makeInstance(cubeGeometry, 0x9900FF, 0, scene),
     GraphicUtils.makeInstance(cubeGeometry, 0x76A5AF, -1.5, scene),
     GraphicUtils.makeInstance(cubeGeometry, 0xFF0000, 1.5, scene)
   ];
 
+  // Scene & Camera being attached to scene
   renderer.render(scene, camera);
 
+  // Responsive viewport setup
   const resizeviewportToDisplaySize = (renderer) => {
     const viewport = renderer.domElement;
     const width = viewport.clientWidth;
@@ -47,6 +93,7 @@ const viewport = () => {
     return forceResize;
   };
 
+  // Render Function
   const render = time => {
     time *= 0.002;
     
@@ -70,9 +117,12 @@ const viewport = () => {
     requestAnimationFrame(render);
   };
   
+  // Inital Light Steup
   GraphicUtils.directionalLight({scene: scene});
   requestAnimationFrame(render);
 
 };
 
+// Calling and Running it all
 viewport();
+});
