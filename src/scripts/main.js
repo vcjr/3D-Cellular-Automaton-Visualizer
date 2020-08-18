@@ -3,22 +3,8 @@ import * as GraphicUtils from "./scripts/3d_utils";
 import Grid from './grid/grid';
 
 // Options that will be passed inside the index.js file
-const options = {
-  camera: {
-    posX: 0,
-    posY: 0,
-    posZ: 10
-  },
-  cubeGeometry: {
-    cubeWidth: 1,
-    cubeHeight: 1,
-    cubeDepth: 1
-  },
-  worldSize: 10
-};
-
 class Main {
-  constructor(options){
+  constructor(element, options){
     //NOTE: I need the three basic things a Scene, a Camera, and objects to render
     const {posX, posY, posZ} = options.camera;
 
@@ -28,8 +14,10 @@ class Main {
 
     this.camera = this.createCamera({ x: posX, y: posY, z: posZ });
 
-    this.world = this.grid(options.worldSize, options.cubeGeometry, scene);
-    // this.world.populate();
+    this.world = this.grid(options.worldSize, options.cubeGeometry, this.scene);
+    debugger // this.world shoud have created a matrix of cube cells 
+
+    GraphicUtils.directionalLight({scene: scene});
 
     this.renderer.render(this.scene, this.camera);
   }
@@ -43,12 +31,12 @@ class Main {
     this.camera.position.z = z;
   }
 
-  grid(worldSize){
-    return new Grid(worldSize);
+  grid(worldSize, cubeGeometry, scene){
+    return new Grid(worldSize, cubeGeometry, scene);
   }
 
   run(){
-
+    // Will be a run function to excute render
   }
 
 }
@@ -72,16 +60,18 @@ const viewport = () => {
 
   // Initial Cell Setup -> Grids Job
   // Ann array of cells to render
-  const cells = [
-    GraphicUtils.makeInstance(cubeGeometry, 0x9900FF, 0, scene),
-    GraphicUtils.makeInstance(cubeGeometry, 0x76A5AF, -1.5, scene),
-    GraphicUtils.makeInstance(cubeGeometry, 0xFF0000, 1.5, scene)
-  ];
+  // const cells = [ // DONE
+  //   GraphicUtils.makeInstance(cubeGeometry, 0x9900FF, 0, scene),
+  //   GraphicUtils.makeInstance(cubeGeometry, 0x76A5AF, -1.5, scene),
+  //   GraphicUtils.makeInstance(cubeGeometry, 0xFF0000, 1.5, scene)
+  // ];
 
   // Scene & Camera being attached to scene
   // renderer.render(scene, camera);
 
   // Responsive viewport setup
+
+  /*! 
   const resizeviewportToDisplaySize = (renderer) => {
     const viewport = renderer.domElement;
     const width = viewport.clientWidth;
@@ -119,6 +109,8 @@ const viewport = () => {
   
     requestAnimationFrame(render);
   };
+
+  */
   
   // Inital Light Steup
   GraphicUtils.directionalLight({scene: scene});

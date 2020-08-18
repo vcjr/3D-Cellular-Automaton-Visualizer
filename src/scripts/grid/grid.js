@@ -17,9 +17,13 @@ class Grid {
     let cells = MathUtils.create3DGrid(Cell, 3);
 
     // This will create instances of each cell and add them each to the scene
-    this.cubes = MathUtils.flattenGrid(cells).map((cell) => {
-      return GraphicUtils.makeInstance(cellGeometry, 0x00A878, 0, this.scene)
-    });
+    // this.cubes is now an array of cells of cube that we have added to our scene and we can render
+    this.cubes = MathUtils.flattenGrid(cells).map((cell) => (
+      GraphicUtils.makeCube(cellGeometry, cell, this.scene)
+    ));
+
+
+
     debugger;
   }
   // Returns total size of grid
