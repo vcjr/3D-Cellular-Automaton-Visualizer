@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import * as GraphicUtils from "./scripts/3d_utils";
-
+import Grid from './grid/grid';
 
 const options = {
   camera: {
@@ -12,7 +12,8 @@ const options = {
     cubeWidth: 1,
     cubeHeight: 1,
     cubeDepth: 1
-  }
+  },
+  worldSize: 10
 };
 
 class Main {
@@ -26,7 +27,8 @@ class Main {
 
     this.camera = this.createCamera({ x: posX, y: posY, z: posZ });
 
-    this.cells(options.cubeGeometry);
+    this.world = this.grid(options.worldSize, options.cubeGeometry);
+    // this.cells(options.cubeGeometry);
 
   }
 
@@ -39,10 +41,8 @@ class Main {
     this.camera.position.z = z;
   }
 
-  cells(geo, sizeOfGrid = 3){
-    const cubeGeometry = GraphicUtils.basicGeoCube(geo.cubeWidth, geo.cubeHeight, geo.cubeDepth);
-
-    let grid = 
+  grid(worldSize){
+    return new Grid(worldSize);
   }
 
   run(){
@@ -55,20 +55,20 @@ export default Main;
 
 const viewport = () => {
 
-  // Scene Setup
+  // Scene Setup -> Main's Job
   const canvas = document.getElementById("visualizer-viewport"); // DONE
   const renderer = new THREE.WebGLRenderer({ canvas }); // DONE
 
   const scene = new THREE.Scene();
 
-  // Camera Stup
+  // Camera Setup -> Main's Job
   const camera = GraphicUtils.makeCamera();
   camera.position.z = 10;
 
-  // Basic Cube Geometry Setup
+  // Basic Cube Geometry Setup -> Grids Job
   const cubeGeometry = GraphicUtils.basicGeoCube();
 
-  // Initial Cell Setup
+  // Initial Cell Setup -> Grids Job
   const cells = [
     GraphicUtils.makeInstance(cubeGeometry, 0x9900FF, 0, scene),
     GraphicUtils.makeInstance(cubeGeometry, 0x76A5AF, -1.5, scene),

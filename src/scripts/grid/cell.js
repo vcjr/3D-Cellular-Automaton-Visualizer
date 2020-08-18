@@ -1,8 +1,10 @@
 class Cell {
-  constructor(x, y, z){
+  constructor(x, y, z, alive = false){
     this.x = x; 
     this.y = y;
     this.z = z;
+
+    this.alive = alive;
   }
 
   printInfo() {

@@ -1,3 +1,5 @@
+const array = require('lodash/array');
+
 export const create3DGrid = (Object, gridSize) => {
   let objectGrid = new Array(new Array(new Array()));
 
@@ -15,3 +17,7 @@ export const create3DGrid = (Object, gridSize) => {
 
   return objectGrid;
 };
+
+export const cellsInGrid = (grid) => {
+  return array.flattenDeep(grid).length;
+}
