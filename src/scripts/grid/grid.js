@@ -1,6 +1,6 @@
-// import Cell from './cell';
+import Cell from './cell';
 // import MathUtils from './utils/math_utils';
-const Cell = require("./cell");
+// const Cell = require("./cell");
 const MathUtils = require("./utils/math_utils");
 const GraphicUtils = require("./utils/3d_utils");
 
@@ -22,13 +22,11 @@ class Grid {
       GraphicUtils.makeCube(cellGeometry, cell, this.scene)
     ));
 
-
-
-    debugger;
+    // debugger;
   }
   // Returns total size of grid
-  size() {
-    return MathUtils.cellsInGrid(this.grid);
+  getSize() {
+    return MathUtils.cellsInGrid(this);
   }
 
   // Returns Alive # of Cells
@@ -43,5 +41,4 @@ class Grid {
 
 }
 
-// export default Grid;
-module.export = Grid;
+export default Grid;

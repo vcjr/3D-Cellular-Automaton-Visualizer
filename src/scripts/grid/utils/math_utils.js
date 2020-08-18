@@ -1,14 +1,14 @@
 // const array = require('lodash/array');
 import { flattenDeep } from "lodash";
-export const create3DGrid = (Object, gridSize) => {
+export const create3DGrid = (Cell, gridSize) => {
   let objectGrid = new Array(new Array(new Array()));
-
-  for (x = 0; x < gridSize; x++) {
+  // debugger
+  for (let x = 0; x < gridSize; x++) {
     objectGrid[x] = [];
-    for (y = 0; y < gridSize; y++) {
+    for (let y = 0; y < gridSize; y++) {
       objectGrid[x][y] = [];
-      for (z = 0; z < gridSize; z++) {
-        let cell = new Object(x, y, z);
+      for (let z = 0; z < gridSize; z++) {
+        let cell = new Cell(x, y, z);
 
         objectGrid[x][y][z] = cell;
       }
@@ -20,7 +20,7 @@ export const create3DGrid = (Object, gridSize) => {
 
 export const cellsInGrid = (grid) => {
   // return array.flattenDeep(grid).length;
-  return flattenDeep(grid).length;
+  return flattenDeep(grid.cubes).length;
 };
 
 export const flattenGrid = (grid) => {

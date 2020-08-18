@@ -12,5 +12,4 @@ class Cell {
   }
 }
 
-// export default Cell;
-module.exports = Cell;
+export default Cell;
