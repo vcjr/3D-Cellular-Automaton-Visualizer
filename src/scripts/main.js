@@ -19,6 +19,7 @@ class Main {
 
     GraphicUtils.directionalLight({scene: scene});
 
+    // No full render cycle yet but should display the cubes based on their positions
     this.renderer.render(this.scene, this.camera);
   }
 
@@ -43,7 +44,7 @@ class Main {
 
 export default Main;
 
-const viewport = () => {
+// const viewport = () => {
 
   // Scene Setup -> Main's Job
   // const canvas = document.getElementById("visualizer-viewport"); // DONE
@@ -113,11 +114,11 @@ const viewport = () => {
   */
   
   // Inital Light Steup
-  GraphicUtils.directionalLight({scene: scene});
-  requestAnimationFrame(render);
+//   GraphicUtils.directionalLight({scene: scene});
+//   requestAnimationFrame(render);
 
-};
+// };
 
 // Calling and Running it all
-viewport();
-});
+// viewport();
+// });
