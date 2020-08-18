@@ -13,13 +13,8 @@ class Main {
     this.scene = new THREE.Scene();
     this.camera = this.createCamera(options.camera);
     this.world = this.grid(options.worldSize, options.cubeGeometry, options.cellSpacing, this.scene);
-    // debugger // this.world shoud have created a matrix of cube cells 
 
-    // remember to abstract this later on to a light we can manipuate inside the main class
     GraphicUtils.directionalLight({scene: this.scene});
-    // No full render cycle yet but should display the cubes based on their positions
-    // this.renderer.render(this.scene, this.camera);
-    // debugger
   }
 
   // Function to initialize a perspective camera
@@ -50,26 +45,28 @@ class Main {
       if (forceResize) {
         this.renderer.setSize(width, height, false);
       }
-      // debugger
       return forceResize;
     };
 
-    // debugger // check what this.renderer is
     if (resizeviewportToDisplaySize(this.renderer)) {
       const viewport = this.renderer.domElement;
       this.camera.aspect = viewport.clientWidth / viewport.clientHeight;
       this.camera.updateProjectionMatrix();
     }
     
-    this.world.cubes.forEach((cube, ndx) => {
 
-      const speed = 1 + ndx * 0.1;
+    this.world.cubes.forEach((cube, cubeIndex) => {
+      // const speed = 1 + cubeIndex * 0.1;
+      const speed = 1;
       const rot = time * speed;
 
-      // cube.rotation.x = rot;
+      cube.rotation.x = rot;
       // cube.rotation.y = rot;
       // cube.rotation.z = rot;
     });
+
+    // this.camera.lookAt(0,0,0);
+    // this.camera.rotation.z += 90 * Math.PI / 180;
 
     this.renderer.render(this.scene, this.camera);
   

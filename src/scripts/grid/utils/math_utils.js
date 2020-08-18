@@ -20,7 +20,6 @@ export const create3DGrid = (Cell, gridSize) => {
 };
 
 export const cellsInGrid = (grid) => {
-  // return array.flattenDeep(grid).length;
   return flattenDeep(grid.cubes).length;
 };
 

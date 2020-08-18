@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
       cubeHeight: 0.8,
       cubeDepth: 0.8
     },
-    worldSize: 8,
+    worldSize: 10,
     cellSpacing: {
       spacingX: 0,
       spacingY: 0,
@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const main = new Main("visualizer-viewport", options);
 
+  // Make this a UI button
   main.run();
 
 });
