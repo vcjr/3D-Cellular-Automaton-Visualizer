@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const options = {
     camera: {
-      posX: 0,
+      posX: 1,
       posY: 0,
       posZ: 10,
       fov: 75, 
@@ -14,15 +14,20 @@ document.addEventListener("DOMContentLoaded", () => {
       far: 1000
     },
     cubeGeometry: {
-      cubeWidth: 0.5,
-      cubeHeight: 0.5,
-      cubeDepth: 0.5
+      cubeWidth: 0.8,
+      cubeHeight: 0.8,
+      cubeDepth: 0.8
     },
-    worldSize: 3
+    worldSize: 3,
+    cellSpacing: {
+      spacingX: 0,
+      spacingY: 0,
+      spacingZ: 0
+    }
   };
 
   const main = new Main("visualizer-viewport", options);
-  // debugger
+
   main.run();
 
 });

@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const scene = new THREE.Scene();
 
-    // Camera Stup
+    // Camera Setup
     const camera = GraphicUtils.makeCamera();
     camera.position.z = 10;
 

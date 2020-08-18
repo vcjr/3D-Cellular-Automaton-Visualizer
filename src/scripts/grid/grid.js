@@ -5,7 +5,7 @@ const MathUtils = require("./utils/math_utils");
 const GraphicUtils = require("./utils/3d_utils");
 
 class Grid {
-  constructor(size, cellOptions, scene) {
+  constructor(size, cellOptions, cellSpacing, scene) {
     this.size = size;
     this.scene = scene;
     const cellGeometry = GraphicUtils.basicGeoCube(
@@ -19,7 +19,7 @@ class Grid {
     // This will create instances of each cell and add them each to the scene
     // this.cubes is now an array of cells of cube that we have added to our scene and we can render
     this.cubes = MathUtils.flattenGrid(cells).map((cell) => (
-      GraphicUtils.makeCube(cellGeometry, cell, this.scene)
+      GraphicUtils.makeCube(cellGeometry, cell, cellSpacing, this.scene)
     ));
 
     // debugger;

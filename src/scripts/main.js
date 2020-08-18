@@ -7,13 +7,12 @@ import Grid from './grid/grid';
 // Options that will be passed inside the index.js file
 class Main {
   constructor(element, options){
-    // const {posX, posY, posZ} = options.camera;
     const canvas = document.getElementById(element);
 
     this.renderer = new THREE.WebGLRenderer({ canvas });
     this.scene = new THREE.Scene();
     this.camera = this.createCamera(options.camera);
-    this.world = this.grid(options.worldSize, options.cubeGeometry, this.scene);
+    this.world = this.grid(options.worldSize, options.cubeGeometry, options.cellSpacing, this.scene);
     // debugger // this.world shoud have created a matrix of cube cells 
 
     // remember to abstract this later on to a light we can manipuate inside the main class
@@ -34,8 +33,8 @@ class Main {
     return camera;
   }
 
-  grid(worldSize, cubeGeometry, scene){
-    return new Grid(worldSize, cubeGeometry, scene);
+  grid(worldSize, cubeGeometry, cellSpacing,scene){
+    return new Grid(worldSize, cubeGeometry, cellSpacing, scene);
   }
 
   // resizeviewportToDisplaySize() {
@@ -82,7 +81,8 @@ class Main {
       const rot = time * speed;
 
       cube.rotation.x = rot;
-      cube.rotation.y = rot;
+      // cube.rotation.y = rot;
+      // cube.rotation.z = rot;
     });
 
     this.renderer.render(this.scene, this.camera);

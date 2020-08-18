@@ -13,7 +13,7 @@ export const makeInstance = (geometry, color, x, scene) => {
 };
 
 // Will take a gemetry, cell object and a scene and create a cube then place the cube based on their own positions
-export const makeCube = (geometry, cell, scene) => {
+export const makeCube = (geometry, cell, cellSpacing, scene) => {
   // Later make an array of colors depending on how alive and how many neigbords are next to the cube
   let color =  0x00A878;
   const material = new THREE.MeshPhongMaterial({color});
@@ -21,9 +21,9 @@ export const makeCube = (geometry, cell, scene) => {
   const cube = new THREE.Mesh(geometry, material);
   scene.add(cube);
 
-  cube.position.x = cell.x;
-  cube.position.y = cell.y;
-  cube.position.z = cell.z;
+  cube.position.x = cell.x + cellSpacing.spacingX;
+  cube.position.y = cell.y + cellSpacing.spacingY;
+  cube.position.z = cell.z + cellSpacing.spacingZ;
 
   return cube;
 };
