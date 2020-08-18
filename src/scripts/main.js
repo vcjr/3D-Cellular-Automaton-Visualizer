@@ -2,6 +2,7 @@ import * as THREE from "three";
 import * as GraphicUtils from "./scripts/3d_utils";
 import Grid from './grid/grid';
 
+// Options that will be passed inside the index.js file
 const options = {
   camera: {
     posX: 0,
@@ -27,9 +28,10 @@ class Main {
 
     this.camera = this.createCamera({ x: posX, y: posY, z: posZ });
 
-    this.world = this.grid(options.worldSize, options.cubeGeometry);
-    // this.cells(options.cubeGeometry);
+    this.world = this.grid(options.worldSize, options.cubeGeometry, scene);
+    // this.world.populate();
 
+    this.renderer.render(this.scene, this.camera);
   }
 
   // Function to initialize a perspective camera
@@ -56,19 +58,20 @@ export default Main;
 const viewport = () => {
 
   // Scene Setup -> Main's Job
-  const canvas = document.getElementById("visualizer-viewport"); // DONE
-  const renderer = new THREE.WebGLRenderer({ canvas }); // DONE
+  // const canvas = document.getElementById("visualizer-viewport"); // DONE
+  // const renderer = new THREE.WebGLRenderer({ canvas }); // DONE
 
-  const scene = new THREE.Scene();
+  // const scene = new THREE.Scene();
 
   // Camera Setup -> Main's Job
-  const camera = GraphicUtils.makeCamera();
-  camera.position.z = 10;
+  // const camera = GraphicUtils.makeCamera();
+  // camera.position.z = 10;
 
   // Basic Cube Geometry Setup -> Grids Job
-  const cubeGeometry = GraphicUtils.basicGeoCube();
+  // const cubeGeometry = GraphicUtils.basicGeoCube();
 
   // Initial Cell Setup -> Grids Job
+  // Ann array of cells to render
   const cells = [
     GraphicUtils.makeInstance(cubeGeometry, 0x9900FF, 0, scene),
     GraphicUtils.makeInstance(cubeGeometry, 0x76A5AF, -1.5, scene),
@@ -76,7 +79,7 @@ const viewport = () => {
   ];
 
   // Scene & Camera being attached to scene
-  renderer.render(scene, camera);
+  // renderer.render(scene, camera);
 
   // Responsive viewport setup
   const resizeviewportToDisplaySize = (renderer) => {

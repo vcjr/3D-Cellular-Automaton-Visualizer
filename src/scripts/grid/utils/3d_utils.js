@@ -12,6 +12,10 @@ export const makeInstance = (geometry, color, x, scene) => {
   return cube;
 };
 
+export const makeCube = (geometry, color, object, scene) => {
+
+};
+
 export const makeCamera = (fov = 75, aspect = 2, near = 0.1, far = 1000) => {
   return new THREE.PerspectiveCamera(fov, aspect, near, far);
 };

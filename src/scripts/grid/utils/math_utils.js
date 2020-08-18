@@ -1,5 +1,5 @@
-const array = require('lodash/array');
-
+// const array = require('lodash/array');
+import { flattenDeep } from "lodash";
 export const create3DGrid = (Object, gridSize) => {
   let objectGrid = new Array(new Array(new Array()));
 
@@ -19,5 +19,10 @@ export const create3DGrid = (Object, gridSize) => {
 };
 
 export const cellsInGrid = (grid) => {
-  return array.flattenDeep(grid).length;
-}
+  // return array.flattenDeep(grid).length;
+  return flattenDeep(grid).length;
+};
+
+export const flattenGrid = (grid) => {
+  return flattenDeep(grid);
+};
