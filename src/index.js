@@ -18,8 +18,8 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const main = new Main("visualizer-viewport", options);
-  debugger
-  main();
+  // debugger
+  main.run();
 
 });
 
