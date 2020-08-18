@@ -13,5 +13,5 @@ export const create3DGrid = (Object, gridSize) => {
     }
   }
 
-  console.log(objectGrid[1][4][0]);
+  return objectGrid;
 };
