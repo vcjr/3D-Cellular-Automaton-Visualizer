@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import * as GraphicUtils from "./scripts/3d_utils";
+// import Main from './scripts/main';
 import "./styles/index.css";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -18,8 +19,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const cells = [
       GraphicUtils.makeInstance(cubeGeometry, 0x9900FF, 0, scene),
-      GraphicUtils.makeInstance(cubeGeometry, 0x76A5AF, -2, scene),
-      GraphicUtils.makeInstance(cubeGeometry, 0xFF0000, 2, scene)
+      GraphicUtils.makeInstance(cubeGeometry, 0x76A5AF, -1.5, scene),
+      GraphicUtils.makeInstance(cubeGeometry, 0xFF0000, 1.5, scene)
     ];
 
     renderer.render(scene, camera);
@@ -39,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const render = time => {
-      time *= 0.001;
+      time *= 0.002;
       
       if (resizeviewportToDisplaySize(renderer)) {
         const viewport = renderer.domElement;
@@ -52,8 +53,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const speed = 1 + ndx * 0.1;
         const rot = time * speed;
 
-        cube.rotation.x = rot;
-        cube.rotation.y = rot;
+        // cube.rotation.x = rot;
+        // cube.rotation.y = rot;
       });
 
       renderer.render(scene, camera);
@@ -62,16 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     
     GraphicUtils.directionalLight({scene: scene});
-    // const light = () => {
-    //   const color = 0xFFFFFF;
-    //   const intensity = 1;
-    //   const light = new THREE.DirectionalLight(color, intensity);
-
-    //   light.position.set(-1, 2, 4);
-    //   scene.add(light);
-    // };
-
-    // light();
     requestAnimationFrame(render);
 
   };
