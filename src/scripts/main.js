@@ -3,6 +3,9 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import * as GraphicUtils from "../scripts/grid/utils/3d_utils";
 import Grid from "./grid/grid";
 
+
+
+
 class Main {
   constructor(element, options) {
     const canvas = document.getElementById(element);
@@ -64,17 +67,21 @@ class Main {
       this.camera.aspect = viewport.clientWidth / viewport.clientHeight;
       this.camera.updateProjectionMatrix();
     }
-
-    this.world.cubes.forEach((cube, cubeIndex) => {
+    
+    // We will use this cloneo of the world to run comparisons and check for how many valid neighbors each cell has to then change the dead or alive status to then render a new set of cubes
+    this.world.update();
+    
+    // debugger
+    // this.world.cubes.forEach((cube, cubeIndex) => {
       // const speed = 1 + cubeIndex * 0.1;
-      const speed = 0.1;
-      const rot = time * speed;
-      if (cube.position) {
+      // const speed = 0.1;
+      // const rot = time * speed;
+      // if (cube.position) {
         // cube.rotation.x = rot;
         // cube.rotation.y = rot;
         // cube.rotation.z = rot;
-      }
-    });
+      // }
+    // });
 
     this.controls.update();
     this.renderer.render(this.scene, this.camera);

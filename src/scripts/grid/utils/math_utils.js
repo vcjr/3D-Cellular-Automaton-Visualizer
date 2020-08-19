@@ -11,8 +11,6 @@ export const create3DGrid = (Cell, gridSize) => {
       for (let z = 0; z < gridSize; z++) {
         let cell = new Cell(x, y, z);
 
-        // if (z % 3 === 0 && x % 2 === 0) cell.alive = true;
-
         objectGrid[x][y][z] = cell;
       }
     }
@@ -28,3 +26,32 @@ export const cellsInGrid = (grid) => {
 export const flattenGrid = (grid) => {
   return flattenDeep(grid);
 };
+
+export const compareArr = [
+  { x: -1, y: -1, z: -1 },
+  { x: -1, y: -1, z: 0 },
+  { x: -1, y: -1, z: 1 },
+  { x: -1, y: 0, z: -1 },
+  { x: -1, y: 0, z: 0 },
+  { x: -1, y: 0, z: 1 },
+  { x: -1, y: 1, z: -1 }, // <- 
+  { x: -1, y: 1, z: 1 },
+  { x: -1, y: 1, z: 1 },
+  { x: 0, y: -1, z: -1 },
+  { x: 0, y: -1, z: 0 },
+  { x: 0, y: -1, z: 1 },
+  { x: 0, y: 0, z: -1 },
+  { x: 0, y: 0, z: 1 },
+  { x: 0, y: 1, z: -1 },
+  { x: 0, y: 1, z: 0 },
+  { x: 0, y: 1, z: 1 },
+  { x: 1, y: -1, z: -1 },
+  { x: 1, y: -1, z: 0 },
+  { x: 1, y: -1, z: 1 },
+  { x: 1, y: 0, z: -1 },
+  { x: 1, y: 0, z: 0 },
+  { x: 1, y: 0, z: 1 },
+  { x: 1, y: 1, z: -1 },
+  { x: 1, y: 1, z: 0 },
+  { x: 1, y: 1, z: 1 }
+];

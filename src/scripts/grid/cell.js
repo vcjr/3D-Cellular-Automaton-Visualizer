@@ -1,10 +1,21 @@
 class Cell {
-  constructor(x, y, z, alive = true){
+  constructor(x, y, z, alive = false){
     this.x = x; 
     this.y = y;
     this.z = z;
 
     this.alive = alive;
+
+    let luck = this.randomLife();
+  }
+
+  randomLife(){
+    const coin = Math.random();
+    this.alive = coin > 0.90;
+  }
+
+  toggleLife(){
+    this.alive = !this.alive;
   }
 
   printInfo() {
