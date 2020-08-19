@@ -64,12 +64,10 @@ p {
   display: flex;
   justify-items: center;
   align-items: center;
-  padding-left: 10%;
-  padding-right: 10%;
+  padding-left: 30px;
+  padding-right: 30px;
   padding-top: 30px;
   padding-bottom: 30px;
-  /* width: 100vw; */
-  /* height: 100vh; */
 }
 
 .nav-logo {
@@ -92,3 +90,11 @@ p {
 }
 
 
+/* Viewport Side Menus */
+.viewport-editor-settings {
+  background-color: rgb(71, 67, 67);
+  border: 1px solid rgba(255, 0, 255, 0.493);
+  height: 400px;
+  color: white;
+  text-align: center;
+}
