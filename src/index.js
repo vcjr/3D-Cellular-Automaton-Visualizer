@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     camera: {
       posX: 5,
       posY: 5,
-      posZ: 25,
+      posZ: 10,
       fov: 75, 
       aspect: 2, 
       near: 0.1, 
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
       cubeHeight: 1,
       cubeDepth: 1
     },
-    worldSize: 25,
+    worldSize: 10,
     cellSpacing: {
       spacingX: 0,
       spacingY: 0,
@@ -28,8 +28,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const main = new Main("visualizer-viewport", options);
 
+  document.addEventListener('click', (event) => {
+    if (event.target.matches('#play-button')) {
+      console.log("You Clicked Play");
+      main.play();
+    }
+
+    if (event.target.matches('#stop-button')) {
+      console.log("You Clicked Stop");
+      main.stop();
+    }
+
+
+  });
   // Make this a UI button
-  main.run();
+  // main.play();
 
 });
 

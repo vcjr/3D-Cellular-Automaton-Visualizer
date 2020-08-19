@@ -3,9 +3,6 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import * as GraphicUtils from "../scripts/grid/utils/3d_utils";
 import Grid from "./grid/grid";
 
-
-
-
 class Main {
   constructor(element, options) {
     const canvas = document.getElementById(element);
@@ -26,7 +23,7 @@ class Main {
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     const halfWorldSize = options.worldSize / 2;
     this.controls.target.set(halfWorldSize, halfWorldSize, halfWorldSize);
-
+    this.clock = new THREE.Clock();
     // debugger // Check what this.world has
   }
 
@@ -46,7 +43,8 @@ class Main {
   }
 
   render(time) {
-    time *= 0.001;
+    // requestAnimationFrame(this.render.bind(this));
+    time *= 0.005;
 
     const resizeviewportToDisplaySize = (renderer) => {
       const viewport = renderer.domElement;
@@ -68,29 +66,40 @@ class Main {
       this.camera.updateProjectionMatrix();
     }
     
-    // We will use this cloneo of the world to run comparisons and check for how many valid neighbors each cell has to then change the dead or alive status to then render a new set of cubes
-    this.world.update();
-    
-    // debugger
-    // this.world.cubes.forEach((cube, cubeIndex) => {
-      // const speed = 1 + cubeIndex * 0.1;
-      // const speed = 0.1;
-      // const rot = time * speed;
-      // if (cube.position) {
-        // cube.rotation.x = rot;
-        // cube.rotation.y = rot;
-        // cube.rotation.z = rot;
-      // }
-    // });
-
     this.controls.update();
     this.renderer.render(this.scene, this.camera);
-
-    requestAnimationFrame(this.render.bind(this));
   }
 
-  run() {
-    this.render();
+  update(){
+    let delta = this.clock.getDelta();
+    let ticks = Math.round( delta / 60);
+    // debugger
+    
+
+    this.world.cubes.forEach((cube, cubeIndex) => {
+      // const speed = 1 + cubeIndex * 0.1;
+      const speed = 0.1;
+      const rot = time * speed;
+
+      // cube.rotation.x = rot;
+      // cube.rotation.y = rot;
+      cube.rotation.z = rot;
+    
+      for ( let i = 0 ; i < ticks ; i++ ) {
+        cube.material.transparent = !cube.material.transparent;
+      };
+    });
+  }
+
+  play() {
+    this.renderer.setAnimationLoop( () => {
+      // this.render();
+      requestAnimationFrame(this.render.bind(this));
+    });
+  }
+
+  stop(){
+    this.renderer.setAnimationLoop(null);
   }
 }
 

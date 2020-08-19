@@ -35,7 +35,6 @@ class Grid {
 
     let allCells = MathUtils.flattenGrid(this.cells);
 
-    let that = this;
     allCells.forEach((cell) => {
       let aliveNeighbors = 0;
 
@@ -52,11 +51,9 @@ class Grid {
         if (nextWorld[newX] === undefined || nextWorld[newX][newY] === undefined ||  nextWorld[newX][newY][newZ] === undefined) {
           continue;
         }
-        // debugger
-        let neighbor = nextWorld[newX][newY][newZ];
-        debugger
 
-        
+        let neighbor = nextWorld[newX][newY][newZ];
+
         if (neighbor.alive){
           aliveNeighbors += 1;
         }
@@ -71,10 +68,11 @@ class Grid {
         staysAlive = aliveNeighbors === 3 ? true : false;
       }
 
-      nextWorld[cell.x][cell.y][cell.z].alive = staysAlive;
+      nextWorld[cell.x][cell.y][cell.z].toggleLife();
     });
 
     this.cells = nextWorld;
+    return this.cells;
   }
 
   // Returns total size of grid

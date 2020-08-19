@@ -16,9 +16,24 @@ export const makeInstance = (geometry, color, x, scene) => {
 export const makeCube = (geometry, cell, cellSpacing, scene) => {
   // Later make an array of colors depending on how alive and how many neigbords are next to the cube
   let color = 0x00a878;
- 
+
   if (cell.alive) {
     const material = new THREE.MeshPhongMaterial({ color });
+
+    const cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
+
+    cube.position.x = cell.x + cellSpacing.spacingX;
+    cube.position.y = cell.y + cellSpacing.spacingY;
+    cube.position.z = cell.z + cellSpacing.spacingZ;
+
+    return cube;
+  } else {
+    const material = new THREE.MeshPhongMaterial({
+      color,
+      opacity: 0,
+      transparent: true,
+    });
 
     const cube = new THREE.Mesh(geometry, material);
 
