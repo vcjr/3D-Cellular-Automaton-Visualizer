@@ -5,8 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const options = {
     camera: {
-      posX: 2.5,
-      posY: 2.5,
+      posX: 5,
+      posY: 5,
       posZ: 20,
       fov: 75, 
       aspect: 2, 

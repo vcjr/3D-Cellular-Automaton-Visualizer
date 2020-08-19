@@ -37,8 +37,13 @@ export const basicGeoCube = (cubeWidth = 1, cubeHeight = 1, cubeDepth = 1) => {
   return new THREE.BoxGeometry(cubeWidth, cubeHeight, cubeDepth);
 };
 
-export const directionalLight = ({color = 0xFFFFFF, intensity = 1, position = [-1, 2, 4], scene}) => {
+export const directionalLight = ({color = 0xFFFFFF, intensity = 1, position = [0, 10, 4], scene}) => {
   const light = new THREE.DirectionalLight(color, intensity);
   light.position.set(...position);
+  scene.add(light);
+};
+
+export const ambientLight = ({color = 0x404040 , intensity = 0.4, scene}) => {
+  const light = new THREE.AmbientLight(color, intensity);
   scene.add(light);
 };
