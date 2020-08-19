@@ -23,7 +23,8 @@ class Main {
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     const halfWorldSize = options.worldSize / 2;
     this.controls.target.set(halfWorldSize, halfWorldSize, halfWorldSize);
-    this.controls.autoRotate = true;
+
+    // debugger // Check what this.world has
   }
 
   // Function to initialize a perspective camera
@@ -66,12 +67,13 @@ class Main {
 
     this.world.cubes.forEach((cube, cubeIndex) => {
       // const speed = 1 + cubeIndex * 0.1;
-      const speed = 1;
+      const speed = 0.1;
       const rot = time * speed;
-
-      cube.rotation.x = rot;
-      // cube.rotation.y = rot;
-      // cube.rotation.z = rot;
+      if (cube.position) {
+        // cube.rotation.x = rot;
+        // cube.rotation.y = rot;
+        // cube.rotation.z = rot;
+      }
     });
 
     this.controls.update();
@@ -81,9 +83,6 @@ class Main {
   }
 
   run() {
-    // this.renderer.render(this.scene, this.camera);
-    // Will be a run function to excute render
-    // debugger
     this.render();
   }
 }

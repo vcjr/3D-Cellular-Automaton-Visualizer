@@ -1,4 +1,4 @@
-import Cell from './cell';
+import Cell from "./cell";
 // import MathUtils from './utils/math_utils';
 // const Cell = require("./cell");
 const MathUtils = require("./utils/math_utils");
@@ -14,16 +14,24 @@ class Grid {
       cellOptions.cubeDepth
     );
 
-    let cells = MathUtils.create3DGrid(Cell, size);
+    this.cells = MathUtils.create3DGrid(Cell, size);
 
     // This will create instances of each cell and add them each to the scene
     // this.cubes is now an array of cells of cube that we have added to our scene and we can render
-    this.cubes = MathUtils.flattenGrid(cells).map((cell) => (
+    this.cubes = MathUtils.flattenGrid(this.cells).map((cell) =>
       GraphicUtils.makeCube(cellGeometry, cell, cellSpacing, this.scene)
-    ));
+    );
 
     // debugger;
   }
+
+  update() {
+    // This function will run the Automaton logic and rule set. Will take in a grid with diffrent cells inside and run the ruleset.
+    // this will return a new grid to re-render on the next cycle
+    // Base on alive or not we will change that individual's cell's material to reflect it's dead or alive status. Transparent if it's there other wise blue;
+    
+  }
+
   // Returns total size of grid
   getSize() {
     return MathUtils.cellsInGrid(this);
@@ -31,14 +39,13 @@ class Grid {
 
   // Returns Alive # of Cells
   aliveCount() {
-    // return MathUtils.cellsInGrid(this.grid);
+    return MathUtils.cellsInGrid(this.grid);
   }
 
   // Returns Dead # of Cells
   deadCount() {
     // return MathUtils.cellsInGrid(this.grid);
   }
-
 }
 
 export default Grid;

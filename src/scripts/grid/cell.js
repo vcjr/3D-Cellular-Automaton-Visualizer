@@ -1,5 +1,5 @@
 class Cell {
-  constructor(x, y, z, alive = false){
+  constructor(x, y, z, alive = true){
     this.x = x; 
     this.y = y;
     this.z = z;

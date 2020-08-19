@@ -7,11 +7,11 @@ document.addEventListener("DOMContentLoaded", () => {
     camera: {
       posX: 5,
       posY: 5,
-      posZ: 20,
+      posZ: 25,
       fov: 75, 
       aspect: 2, 
       near: 0.1, 
-      far: 1000
+      far: 10000
     },
     cubeGeometry: {
       cubeWidth: 0.8,

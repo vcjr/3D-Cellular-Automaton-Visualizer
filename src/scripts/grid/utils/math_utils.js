@@ -11,6 +11,8 @@ export const create3DGrid = (Cell, gridSize) => {
       for (let z = 0; z < gridSize; z++) {
         let cell = new Cell(x, y, z);
 
+        // if (z % 3 === 0 && x % 2 === 0) cell.alive = true;
+
         objectGrid[x][y][z] = cell;
       }
     }
