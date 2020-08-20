@@ -12,12 +12,12 @@ class Main {
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color(0xffffff);
     this.camera = this.createCamera(options.camera, options.worldSize);
-    this.world = this.grid(
-      options.worldSize,
-      options.cubeGeometry,
-      options.cellSpacing,
-      this.scene
-    );
+    // this.world = this.grid(
+    //   options.worldSize,
+    //   options.cubeGeometry,
+    //   options.cellSpacing,
+    //   this.scene
+    // );
 
     GraphicUtils.directionalLight({ scene: this.scene });
     GraphicUtils.ambientLight({ scene: this.scene, color: 0xffffff });
@@ -49,21 +49,21 @@ class Main {
   render(time) {
     // time *= 0.005;
     
-    const resizeviewportToDisplaySize = (renderer) => {
-      const viewport = renderer.domElement;
-      const width = viewport.clientWidth;
-      const height = viewport.clientHeight;
+    // const resizeviewportToDisplaySize = (renderer) => {
+    //   const viewport = renderer.domElement;
+    //   const width = viewport.clientWidth;
+    //   const height = viewport.clientHeight;
 
-      const forceResize =
-        viewport.width !== width || viewport.height !== height;
+    //   const forceResize =
+    //     viewport.width !== width || viewport.height !== height;
 
-      if (forceResize) {
-        this.renderer.setSize(width, height, false);
-      }
-      return forceResize;
-    };
+    //   if (forceResize) {
+    //     this.renderer.setSize(width, height, false);
+    //   }
+    //   return forceResize;
+    // };
 
-    if (resizeviewportToDisplaySize(this.renderer)) {
+    if (GraphicUtils.resizeviewportToDisplaySize(this.renderer)) {
       const viewport = this.renderer.domElement;
       this.camera.aspect = viewport.clientWidth / viewport.clientHeight;
       this.camera.updateProjectionMatrix();
@@ -81,12 +81,12 @@ class Main {
     // document.getElementById("ticks-span").innerText = `Ticks: ${this.ticks}`;
   
     // setTimeout( () => {
-      this.world.cubes.forEach((cube, cubeIndex) => {
+      // this.world.cubes.forEach((cube, cubeIndex) => {
     //     // const speed = 1 + cubeIndex * 0.1;
-        const speed = 0.9;
-        const rot = this.delta * speed;
+        // const speed = 0.9;
+        // const rot = this.delta * speed;
   
-        cube.rotation.x = rot;
+        // cube.rotation.x = rot;
     //     // cube.rotation.y = rot;
     //     // cube.rotation.z = rot;
       
@@ -95,7 +95,7 @@ class Main {
     //     // };
     //     // if (this.ticks === 1) cube.material.transparent = !cube.material.transparent;
     //     cube.material.transparent = !cube.material.transparent;
-      });
+      // });
     // }, 3000);
   }
 
