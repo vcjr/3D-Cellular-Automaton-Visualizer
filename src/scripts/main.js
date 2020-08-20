@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import * as GraphicUtils from "../scripts/grid/utils/3d_utils";
 import Grid from "./grid/grid";
+import MasterGrid from './grid/grid-master';
 import { cloneDeep } from "lodash";
 
 class Main {
@@ -18,6 +19,8 @@ class Main {
     //   options.cellSpacing,
     //   this.scene
     // );
+    this.grid = new MasterGrid(options.worldSize, options.cubeGeometry, options.cellSpacing, this.scene);
+    this.grid.populateGrid();
 
     GraphicUtils.directionalLight({ scene: this.scene });
     GraphicUtils.ambientLight({ scene: this.scene, color: 0xffffff });
@@ -27,8 +30,6 @@ class Main {
     const halfWorldSize = options.worldSize / 2;
     this.controls.target.set(halfWorldSize, halfWorldSize, halfWorldSize);
     this.clock = new THREE.Clock();
-    
-    // debugger // Check what this.world has
   }
 
   // Function to initialize a perspective camera
@@ -47,22 +48,12 @@ class Main {
   }
 
   render(time) {
-    // time *= 0.005;
-    
-    // const resizeviewportToDisplaySize = (renderer) => {
-    //   const viewport = renderer.domElement;
-    //   const width = viewport.clientWidth;
-    //   const height = viewport.clientHeight;
-
-    //   const forceResize =
-    //     viewport.width !== width || viewport.height !== height;
-
-    //   if (forceResize) {
-    //     this.renderer.setSize(width, height, false);
-    //   }
-    //   return forceResize;
-    // };
-
+    time *= 0.001;
+    this.delta = this.clock.getDelta();
+    this.ticks = Math.round(this.delta);
+   
+    document.getElementById("ticks-span").innerText = `Ticks: ${this.ticks}`;
+  
     if (GraphicUtils.resizeviewportToDisplaySize(this.renderer)) {
       const viewport = this.renderer.domElement;
       this.camera.aspect = viewport.clientWidth / viewport.clientHeight;
@@ -73,12 +64,10 @@ class Main {
     this.renderer.render(this.scene, this.camera);
   }
 
-  update(time){
-    this.delta = this.clock.getDelta();
+  update(){
+    
     // let ticks = Math.round( delta / 60);
-    // this.ticks = Math.round(this.delta / 0.160);
-   
-    // document.getElementById("ticks-span").innerText = `Ticks: ${this.ticks}`;
+    // 
   
     // setTimeout( () => {
       // this.world.cubes.forEach((cube, cubeIndex) => {
@@ -97,12 +86,12 @@ class Main {
     //     cube.material.transparent = !cube.material.transparent;
       // });
     // }, 3000);
+    this.render();
   }
 
   play() {
     this.renderer.setAnimationLoop( () => {
       this.update();
-      this.render();
       // requestAnimationFrame(this.render.bind(this));
     });
   }

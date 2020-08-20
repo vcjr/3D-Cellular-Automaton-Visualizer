@@ -1,4 +1,4 @@
-import THREE from "three";
+import * as THREE from "three";
 import Cell from "./cell";
 
 import * as MathUtils from "./utils/math_utils";
@@ -12,7 +12,9 @@ import Stats from "three/examples/jsm/libs/stats.module";
 
 import { cloneDeep } from "lodash";
 
-class GridMaster {
+(function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='//mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);})();
+
+export default class MasterGrid {
   constructor(worldSize, cellOptions, cellSpacing, scene){
     this.cellOptions = cellOptions;
     this.cellSpacing = cellSpacing;
@@ -21,13 +23,56 @@ class GridMaster {
 
     // This will setup the cells to be created
     this.cells = MathUtils.flattenGrid(MathUtils.create3DGrid(Cell, worldSize));
+  }
 
-    // this.cells = MathUtils.create3DGrid(Cell, size);
-    // this.cubes = MathUtils.flattenGrid(this.cells).map((cell) =>
-    //   GraphicUtils.makeCube(cellGeometry, cell, cellSpacing, this.scene)
-    // );
+  populateGrid(){
+    this.resetGrid();
 
-  
+    const color = 0x00a878;
+    // Can use Matrix3 to store all the locations of the cells which are the cubes
+    const cellGeometry = GraphicUtils.basicGeoCube(
+      this.cellOptions.cubeWidth,
+      this.cellOptions.cubeHeight,
+      this.cellOptions.cubeDepth
+    );
+
+    const material = new THREE.MeshPhongMaterial({ color });
+    
+    const cellMatrix = new THREE.Matrix4();
+
+    let count = Math.pow(this.worldSize, 3);
+
+    const cellMesh = new THREE.InstancedMesh(cellGeometry, material, count);
+
+    this.cells.forEach((cell, idx) => {
+
+      // Will only add the cell to the grid matrix if alive
+      if(cell.alive) {
+        this.setCellPositionMatrix(cellMatrix, cell);
+        cellMesh.setMatrixAt(idx, cellMatrix);
+      }
+    });
+
+    this.scene.add(cellMesh);
+  }
+
+  setCellPositionMatrix(matrix, cell){
+    let position = new THREE.Vector3();
+    let rotation = new THREE.Euler();
+    let quaternion = new THREE.Quaternion();
+    let scale = new THREE.Vector3();
+
+    rotation.x, rotation.y, rotation.z = 0;
+
+    position.x = cell.x;
+    position.y = cell.y;
+    position.z = cell.z;
+
+    quaternion.setFromEuler( rotation );
+    // Hard coded for now set to 1;
+    scale.x = scale.y = scale.z = 1;
+
+    matrix.compose( position, quaternion, scale );
   }
 
   resetGrid(){
@@ -43,29 +88,5 @@ class GridMaster {
 
       this.scene.remove(cellMesh);
     });
-  }
-
-
-  populateGrid(){
-    this.resetGrid();
-    
-    const color = 0x00a878;
-    // Can use Matrix3 to store all the locations of the cells which are the cubes
-    const cellGeometry = GraphicUtils.basicGeoCube(
-      cellOptions.cubeWidth,
-      cellOptions.cubeHeight,
-      cellOptions.cubeDepth
-    );
-
-    const material = new THREE.MeshPhongMaterial({ color });
-    
-    this.world = new THREE.Matrix3();
-
-    // Get a count of the worldSize^3
-    let count = Math.pow(this.worldSize, 3);
-    cellMesh = new THREE.InstancedMesh(cellGeometry, material, count)
-    
-
-
   }
 }
