@@ -67,8 +67,9 @@ class Grid {
       } else {
         staysAlive = aliveNeighbors === 3 ? true : false;
       }
-
-      nextWorld[cell.x][cell.y][cell.z].toggleLife();
+    //  debugger // compare this.cell to nextworld alive status
+      nextWorld[cell.x][cell.y][cell.z].alive = staysAlive;
+      
     });
 
     this.cells = nextWorld;

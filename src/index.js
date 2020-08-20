@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
       cubeHeight: 1,
       cubeDepth: 1
     },
-    worldSize: 10,
+    worldSize: 20,
     cellSpacing: {
       spacingX: 0,
       spacingY: 0,
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const main = new Main("visualizer-viewport", options);
-
+  
   document.addEventListener('click', (event) => {
     if (event.target.matches('#play-button')) {
       console.log("You Clicked Play");
@@ -39,10 +39,8 @@ document.addEventListener("DOMContentLoaded", () => {
       main.stop();
     }
 
-
   });
-  // Make this a UI button
-  // main.play();
 
+  
 });
 

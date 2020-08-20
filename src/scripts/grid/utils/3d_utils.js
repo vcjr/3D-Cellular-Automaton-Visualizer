@@ -21,6 +21,7 @@ export const makeCube = (geometry, cell, cellSpacing, scene) => {
     const material = new THREE.MeshPhongMaterial({ color });
 
     const cube = new THREE.Mesh(geometry, material);
+    // const cube = new THREE.InstancedMesh(geometry, material, 8000);
     scene.add(cube);
 
     cube.position.x = cell.x + cellSpacing.spacingX;
@@ -34,7 +35,7 @@ export const makeCube = (geometry, cell, cellSpacing, scene) => {
       opacity: 0,
       transparent: true,
     });
-
+    material.needsUpdate = true;
     const cube = new THREE.Mesh(geometry, material);
 
     scene.add(cube);
