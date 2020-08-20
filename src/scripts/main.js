@@ -10,6 +10,7 @@ class Main {
 
     this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
     this.scene = new THREE.Scene();
+    this.scene.background = new THREE.Color(0xffffff);
     this.camera = this.createCamera(options.camera, options.worldSize);
     this.world = this.grid(
       options.worldSize,
@@ -72,20 +73,20 @@ class Main {
     this.renderer.render(this.scene, this.camera);
   }
 
-  update(){
-    // this.delta = this.clock.getDelta();
+  update(time){
+    this.delta = this.clock.getDelta();
     // let ticks = Math.round( delta / 60);
     // this.ticks = Math.round(this.delta / 0.160);
    
     // document.getElementById("ticks-span").innerText = `Ticks: ${this.ticks}`;
   
     // setTimeout( () => {
-    //   this.world.cubes.forEach((cube, cubeIndex) => {
+      this.world.cubes.forEach((cube, cubeIndex) => {
     //     // const speed = 1 + cubeIndex * 0.1;
-    //     // const speed = 0.1;
-    //     // const rot = time * speed;
+        const speed = 0.9;
+        const rot = this.delta * speed;
   
-    //     // cube.rotation.x = rot;
+        cube.rotation.x = rot;
     //     // cube.rotation.y = rot;
     //     // cube.rotation.z = rot;
       
@@ -94,7 +95,7 @@ class Main {
     //     // };
     //     // if (this.ticks === 1) cube.material.transparent = !cube.material.transparent;
     //     cube.material.transparent = !cube.material.transparent;
-    //   });
+      });
     // }, 3000);
   }
 
