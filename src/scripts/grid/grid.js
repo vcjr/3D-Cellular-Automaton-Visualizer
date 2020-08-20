@@ -1,9 +1,8 @@
 import Cell from "./cell";
-// import MathUtils from './utils/math_utils';
-// const Cell = require("./cell");
-const MathUtils = require("./utils/math_utils");
-const GraphicUtils = require("./utils/3d_utils");
-import { cloneDeep, xor } from "lodash";
+import MathUtils from './utils/math_utils';
+import GraphicUtils from "./utils/3d_utils";
+import { cloneDeep } from "lodash";
+
 
 class Grid {
   constructor(size, cellOptions, cellSpacing, scene) {
