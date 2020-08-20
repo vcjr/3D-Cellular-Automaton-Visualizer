@@ -1,6 +1,6 @@
 import Cell from "./cell";
-import MathUtils from './utils/math_utils';
-import GraphicUtils from "./utils/3d_utils";
+import * as MathUtils from './utils/math_utils';
+import * as GraphicUtils from "./utils/3d_utils";
 import { cloneDeep } from "lodash";
 
 

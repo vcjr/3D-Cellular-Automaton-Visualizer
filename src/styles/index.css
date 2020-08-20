@@ -110,3 +110,17 @@ p {
 }
 
 
+.bottom-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 23px;
+}
+
+.bottom-buttons button {
+  font-family: 'BP Dots Square Bold';
+  width: 50px;
+  padding: 5px;
+  margin-right: 20px;
+}
