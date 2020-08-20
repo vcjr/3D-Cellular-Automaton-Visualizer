@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
       cubeHeight: 1,
       cubeDepth: 1
     },
-    worldSize: 20,
+    worldSize: 100,
     cellSpacing: {
       spacingX: 0,
       spacingY: 0,
