@@ -26,3 +26,32 @@ export const cellsInGrid = (grid) => {
 export const flattenGrid = (grid) => {
   return flattenDeep(grid);
 };
+
+export const compareArr = [
+  { x: -1, y: -1, z: -1 },
+  { x: -1, y: -1, z: 0 },
+  { x: -1, y: -1, z: 1 },
+  { x: -1, y: 0, z: -1 },
+  { x: -1, y: 0, z: 0 },
+  { x: -1, y: 0, z: 1 },
+  { x: -1, y: 1, z: -1 }, // <- 
+  { x: -1, y: 1, z: 1 },
+  { x: -1, y: 1, z: 1 },
+  { x: 0, y: -1, z: -1 },
+  { x: 0, y: -1, z: 0 },
+  { x: 0, y: -1, z: 1 },
+  { x: 0, y: 0, z: -1 },
+  { x: 0, y: 0, z: 1 },
+  { x: 0, y: 1, z: -1 },
+  { x: 0, y: 1, z: 0 },
+  { x: 0, y: 1, z: 1 },
+  { x: 1, y: -1, z: -1 },
+  { x: 1, y: -1, z: 0 },
+  { x: 1, y: -1, z: 1 },
+  { x: 1, y: 0, z: -1 },
+  { x: 1, y: 0, z: 0 },
+  { x: 1, y: 0, z: 1 },
+  { x: 1, y: 1, z: -1 },
+  { x: 1, y: 1, z: 0 },
+  { x: 1, y: 1, z: 1 }
+];

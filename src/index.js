@@ -7,18 +7,18 @@ document.addEventListener("DOMContentLoaded", () => {
     camera: {
       posX: 5,
       posY: 5,
-      posZ: 20,
+      posZ: 10,
       fov: 75, 
       aspect: 2, 
       near: 0.1, 
-      far: 1000
+      far: 10000
     },
     cubeGeometry: {
-      cubeWidth: 0.8,
-      cubeHeight: 0.8,
-      cubeDepth: 0.8
+      cubeWidth: 1,
+      cubeHeight: 1,
+      cubeDepth: 1
     },
-    worldSize: 10,
+    worldSize: 20,
     cellSpacing: {
       spacingX: 0,
       spacingY: 0,
@@ -27,9 +27,20 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const main = new Main("visualizer-viewport", options);
+  
+  document.addEventListener('click', (event) => {
+    if (event.target.matches('#play-button')) {
+      console.log("You Clicked Play");
+      main.play();
+    }
 
-  // Make this a UI button
-  main.run();
+    if (event.target.matches('#stop-button')) {
+      console.log("You Clicked Stop");
+      main.stop();
+    }
 
+  });
+
+  
 });
 

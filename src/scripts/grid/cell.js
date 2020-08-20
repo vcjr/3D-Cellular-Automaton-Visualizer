@@ -5,6 +5,17 @@ class Cell {
     this.z = z;
 
     this.alive = alive;
+
+    let luck = this.randomLife();
+  }
+
+  randomLife(){
+    const coin = Math.random();
+    this.alive = coin > 0.90;
+  }
+
+  toggleLife(){
+    this.alive = !this.alive;
   }
 
   printInfo() {
