@@ -48,11 +48,11 @@ class Main {
   }
 
   render(time) {
-    time *= 0.001;
+    time *= 0.001; 
     this.delta = this.clock.getDelta();
     this.ticks = Math.round(this.delta);
-   
-    document.getElementById("ticks-span").innerText = `Ticks: ${this.ticks}`;
+
+    // document.getElementById("ticks-span").innerText = `Ticks: ${this.ticks}`;
   
     if (GraphicUtils.resizeviewportToDisplaySize(this.renderer)) {
       const viewport = this.renderer.domElement;
