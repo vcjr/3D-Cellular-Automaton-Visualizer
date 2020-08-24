@@ -25,16 +25,20 @@
   <div class="bottom-buttons">
     <button id="play-button">PLAY</button>
     <button id="stop-button">STOP</button>
-    <button id="instructional-modal">INSTRUCTIONS</button>
+    <button id="open-modal">INSTRUCTIONS</button>
     <span id="ticks-span">Ticks: 0</span>
   </div>
   <p>Made with ❤️ by Victor C.</p>
 
   <div id="instructions-modal" class="modal">
     <div class="instructional-content">
-      <span class="close">&times;</span>
-      <h1>Instructions</h1>
-      <p>You've made the choice to dive into the world of automatons!</p>
+      <div class="inner-content">
+        <span id="exit">&times;</span>
+        <h1>Instructions</h1>
+        <p>You've made the choice to dive into the world of automatons!</p>
+        <p>On the right you will find the automaton settings</p>
+        <p>On the left you can choose the theme color configuration</p>
+      </div>
     </div>
   </div>
   <script src="./dist/main.js"></script>
