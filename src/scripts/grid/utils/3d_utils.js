@@ -74,3 +74,17 @@ export const ambientLight = ({ color = 0x404040, intensity = 0.4, scene }) => {
   const light = new THREE.AmbientLight(color, intensity);
   scene.add(light);
 };
+
+export const resizeviewportToDisplaySize = (renderer) => {
+  const viewport = renderer.domElement;
+  const width = viewport.clientWidth;
+  const height = viewport.clientHeight;
+
+  const forceResize =
+    viewport.width !== width || viewport.height !== height;
+
+  if (forceResize) {
+    renderer.setSize(width, height, false);
+  }
+  return forceResize;
+};
