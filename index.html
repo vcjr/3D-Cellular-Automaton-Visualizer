@@ -12,7 +12,8 @@
 
 <body>
   <div class="top-container">
-    <img class="visualizer-top-heading" src="./dist/images/3dVisualizerHeading.png" alt="3D Cellular Automaton Visualizer">
+    <img class="visualizer-top-heading" src="./dist/images/3dVisualizerHeading.png"
+      alt="3D Cellular Automaton Visualizer">
     <!-- <img class="visualizer-top-heading"  src="/dist/images/3dVisualizerHeading2.png" alt="3D Cellular Automaton Visualizer"> -->
     <nav>
       <a class="nav-logo" href="/">Victor</a>
@@ -24,9 +25,22 @@
   <div class="bottom-buttons">
     <button id="play-button">PLAY</button>
     <button id="stop-button">STOP</button>
+    <button id="open-modal">INSTRUCTIONS</button>
     <span id="ticks-span">Ticks: 0</span>
   </div>
   <p>Made with ❤️ by Victor C.</p>
+
+  <div id="instructions-modal" class="modal">
+    <div class="instructional-content">
+      <div class="inner-content">
+        <span id="exit">&times;</span>
+        <h1>Instructions</h1>
+        <p>You've made the choice to dive into the world of automatons!</p>
+        <p>On the right you will find the automaton settings</p>
+        <p>On the left you can choose the theme color configuration</p>
+      </div>
+    </div>
+  </div>
   <script src="./dist/main.js"></script>
 </body>
 
