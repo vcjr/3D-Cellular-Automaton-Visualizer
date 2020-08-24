@@ -42,6 +42,13 @@ body {
   /* align-items: center; */
 }
 
+h1 {
+  color: white;
+  font-family: 'BP Dots Diamond Regular';
+  /* font-size: 23px; */
+  text-align: center;
+}
+
 p {
   color: white;
   font-family: 'BP Dots Diamond Regular';
@@ -61,7 +68,6 @@ p {
   width: 1000px;
   pointer-events: none;
 }
-
 
 .viewport-container {
   display: flex;
@@ -108,11 +114,12 @@ p {
   justify-content: center;
   color: white;
   font-size: 23px;
+  padding-bottom: 20px;
 }
 
 .bottom-buttons button {
   font-family: 'BP Dots Square Bold';
-  width: 50px;
+  min-width: 50px;
   padding: 5px;
   margin-right: 20px;
 }
