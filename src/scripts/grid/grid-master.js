@@ -22,7 +22,60 @@ export default class MasterGrid {
     this.scene = scene;
 
     // This will setup the cells to be created
-    this.cells = MathUtils.flattenGrid(MathUtils.create3DGrid(Cell, worldSize));
+    this.cells = MathUtils.create3DGrid(Cell, worldSize);
+    // this.cells = MathUtils.flattenGrid(MathUtils.create3DGrid(Cell, worldSize));
+  }
+
+  cycle(){
+    // We will populate the grid
+    // We then want to run the algorithm to check for the cell neigbors
+    let nextWorld = cloneDeep(this.cells);
+
+    // debugger // Check is nextWorld is same as allCells
+    let allCells = MathUtils.flattenGrid(nextWorld);
+    // this.cells.forEach((cell, i) => {
+    allCells.forEach((cell, i) => {
+      let aliveNeighbors = 0;
+
+      // This will return other cell cordinates to later compare
+      for (let i = 0; i < MathUtils.compareArr.length; i++) {
+        const offSet = MathUtils.compareArr[i];
+        const { x, y, z } = offSet;
+
+        let newX = cell.x - x;
+        let newY = cell.y - y;
+        let newZ = cell.z - z;
+
+        
+        if (nextWorld[newX] === undefined || nextWorld[newX][newY] === undefined ||  nextWorld[newX][newY][newZ] === undefined) {
+          continue;
+        }
+
+        let neighbor = nextWorld[newX][newY][newZ];
+
+        if (neighbor.alive){
+          aliveNeighbors += 1;
+        }
+      }
+      // Hardcode the automaton ruleset here for now
+      let staysAlive = false;
+      if (cell.alive) {
+        staysAlive =
+          aliveNeighbors > 17 ? false : aliveNeighbors < 10 ? false : true;
+      } else {
+        staysAlive = aliveNeighbors === 2 ? true : false;
+      }
+    //  debugger // compare this.cell to nextworld alive status
+      nextWorld[cell.x][cell.y][cell.z].alive = staysAlive;
+      // nextWorld[i].alive = staysAlive;
+      
+    });
+
+    this.cells = nextWorld;
+    debugger
+    // this.populateGrid();
+    // return this.cells;
+    // After we want to re-introduce the populateGrid() method since this.cells will have been updated with a new branch of cells
   }
 
   populateGrid(){
@@ -44,7 +97,9 @@ export default class MasterGrid {
 
     const cellMesh = new THREE.InstancedMesh(cellGeometry, material, count);
 
-    this.cells.forEach((cell, idx) => {
+    // this.cells.forEach((cell, idx) => {
+    this.cubes = MathUtils.flattenGrid(this.cells);
+    this.cubes.forEach((cell, idx) => {
 
       // Will only add the cell to the grid matrix if alive
       if(cell.alive) {

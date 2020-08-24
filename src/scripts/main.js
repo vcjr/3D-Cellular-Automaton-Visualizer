@@ -59,33 +59,17 @@ class Main {
       this.camera.aspect = viewport.clientWidth / viewport.clientHeight;
       this.camera.updateProjectionMatrix();
     }
-    
+    this.grid.populateGrid();
+    this.grid.cycle();
     this.controls.update();
     this.renderer.render(this.scene, this.camera);
   }
 
   update(){
     
-    // let ticks = Math.round( delta / 60);
-    // 
-  
-    // setTimeout( () => {
-      // this.world.cubes.forEach((cube, cubeIndex) => {
-    //     // const speed = 1 + cubeIndex * 0.1;
-        // const speed = 0.9;
-        // const rot = this.delta * speed;
-  
-        // cube.rotation.x = rot;
-    //     // cube.rotation.y = rot;
-    //     // cube.rotation.z = rot;
-      
-    //     // for ( let i = 0 ; i < ticks ; i++ ) {
-    //     //   cube.material.transparent = !cube.material.transparent;
-    //     // };
-    //     // if (this.ticks === 1) cube.material.transparent = !cube.material.transparent;
-    //     cube.material.transparent = !cube.material.transparent;
-      // });
-    // }, 3000);
+    // let ticks = Math.round( this.delta / 60);
+    
+    
     this.render();
   }
 

@@ -14,11 +14,11 @@ document.addEventListener("DOMContentLoaded", () => {
       far: 10000,
     },
     cubeGeometry: {
-      cubeWidth: 1,
-      cubeHeight: 1,
-      cubeDepth: 1,
+      cubeWidth: 0.99,
+      cubeHeight: 0.99,
+      cubeDepth: 0.99,
     },
-    worldSize: 100,
+    worldSize: 25,
     cellSpacing: {
       spacingX: 0,
       spacingY: 0,
