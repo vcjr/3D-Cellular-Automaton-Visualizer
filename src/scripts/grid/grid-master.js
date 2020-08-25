@@ -58,6 +58,8 @@ export default class MasterGrid {
       } else {
         staysAlive = aliveNeighbors === 3 ? true : false;
       }
+      // Set neighborCount to it's current cycle Count
+      nextWorld[cell.x][cell.y][cell.z].neighborCount = aliveNeighbors;
       nextWorld[cell.x][cell.y][cell.z].alive = staysAlive;
       
     });
@@ -65,27 +67,32 @@ export default class MasterGrid {
     this.cells = nextWorld;
   }
 
-  populateGrid(){
+  populateGrid(colorOptions = null){
     this.resetGrid();
+    const { color1, color2, color3, color4, color5 } = colorOptions;
 
-    const color = 0x00a878;
+    let color = 0x00a878;
     const cellGeometry = GraphicUtils.basicGeoCube(
       this.cellOptions.cubeWidth,
       this.cellOptions.cubeHeight,
       this.cellOptions.cubeDepth
     );
 
+    debugger // check the path to the meshmaterial's color
+    color = color5;
     const material = new THREE.MeshPhongMaterial({ color });
     
     const cellMatrix = new THREE.Matrix4();
 
     let count = Math.pow(this.worldSize, 3);
 
+    // const cellMesh = new THREE.InstancedBufferGeometry(cellGeometry, material, count);
     const cellMesh = new THREE.InstancedMesh(cellGeometry, material, count);
 
     this.cubes = MathUtils.flattenGrid(this.cells);
+    // cellMesh.material.color = color5;
     this.cubes.forEach((cell, idx) => {
-
+      debugger //Check cell.neigborCount
       if(cell.alive) {
         this.setCellPositionMatrix(cellMatrix, cell);
         cellMesh.setMatrixAt(idx, cellMatrix);

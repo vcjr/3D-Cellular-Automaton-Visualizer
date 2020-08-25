@@ -44,15 +44,10 @@ function () {
     });
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color(0xffffff);
-    this.camera = this.createCamera(options.camera, options.worldSize); // this.world = this.grid(
-    //   options.worldSize,
-    //   options.cubeGeometry,
-    //   options.cellSpacing,
-    //   this.scene
-    // );
-
+    this.camera = this.createCamera(options.camera, options.worldSize);
+    this.colors = options.colors;
     this.grid = new _gridMaster["default"](options.worldSize, options.cubeGeometry, options.cellSpacing, this.scene);
-    this.grid.populateGrid();
+    this.grid.populateGrid(this.colors);
     GraphicUtils.directionalLight({
       scene: this.scene
     });
@@ -94,15 +89,14 @@ function () {
       // time *= 0.001; 
       this.delta = this.clock.getDelta(); // this.ticks = Math.round(this.delta / 60);
       // this.ticks = this.delta;
+      // if ((this.clock.elapsedTime % 0.5 === 0)){
 
-      if (this.clock.elapsedTime % 0.5 === 0) {
-        this.grid.populateGrid();
-        this.grid.cycle();
-        this.ticks += 1;
-        debugger;
-      }
+      this.grid.cycle();
+      this.grid.populateGrid(this.colors);
+      this.ticks += 1; // debugger
+      // }
+      // debugger
 
-      debugger;
       document.getElementById("ticks-span").textContent = "Ticks: ".concat(this.ticks, " | ");
       document.getElementById("delta-span").textContent = "Old Time: ".concat(this.clock.oldTime);
       document.getElementById("time-span").textContent = " Time: ".concat(this.clock.getElapsedTime()); // document.getElementById("delta-span").textContent = `Delta: ${this.delta}`;

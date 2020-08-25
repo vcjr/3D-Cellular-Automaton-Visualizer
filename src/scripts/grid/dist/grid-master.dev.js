@@ -100,8 +100,10 @@ function () {
           staysAlive = aliveNeighbors > 3 ? false : aliveNeighbors < 2 ? false : true;
         } else {
           staysAlive = aliveNeighbors === 3 ? true : false;
-        }
+        } // Set neighborCount to it's current cycle Count
 
+
+        nextWorld[cell.x][cell.y][cell.z].neighborCount = aliveNeighbors;
         nextWorld[cell.x][cell.y][cell.z].alive = staysAlive;
       });
       this.cells = nextWorld;
@@ -111,17 +113,30 @@ function () {
     value: function populateGrid() {
       var _this = this;
 
+      var colorOptions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
       this.resetGrid();
+      var color1 = colorOptions.color1,
+          color2 = colorOptions.color2,
+          color3 = colorOptions.color3,
+          color4 = colorOptions.color4,
+          color5 = colorOptions.color5;
       var color = 0x00a878;
       var cellGeometry = GraphicUtils.basicGeoCube(this.cellOptions.cubeWidth, this.cellOptions.cubeHeight, this.cellOptions.cubeDepth);
+      debugger; // check the path to the meshmaterial's color
+
+      color = color5;
       var material = new THREE.MeshPhongMaterial({
         color: color
       });
       var cellMatrix = new THREE.Matrix4();
-      var count = Math.pow(this.worldSize, 3);
+      var count = Math.pow(this.worldSize, 3); // const cellMesh = new THREE.InstancedBufferGeometry(cellGeometry, material, count);
+
       var cellMesh = new THREE.InstancedMesh(cellGeometry, material, count);
-      this.cubes = MathUtils.flattenGrid(this.cells);
+      this.cubes = MathUtils.flattenGrid(this.cells); // cellMesh.material.color = color5;
+
       this.cubes.forEach(function (cell, idx) {
+        debugger; //Check cell.neigborCount
+
         if (cell.alive) {
           _this.setCellPositionMatrix(cellMatrix, cell);
 

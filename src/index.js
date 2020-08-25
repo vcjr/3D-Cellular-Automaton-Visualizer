@@ -24,6 +24,13 @@ document.addEventListener("DOMContentLoaded", () => {
       spacingY: 0,
       spacingZ: 0,
     },
+    colors: {
+      color1: 0x00faff,
+      color2: 0x9936b7,
+      color3: 0xaa65bf,
+      color4: 0xad5071,
+      color5: 0xff4787,
+    },
   };
 
   const main = new Main("visualizer-viewport", options);

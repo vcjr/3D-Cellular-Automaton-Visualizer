@@ -23,6 +23,7 @@ function () {
     this.y = y;
     this.z = z;
     this.alive = alive;
+    this.neighborCount = null;
     var luck = this.randomLife();
   }
 

@@ -13,15 +13,10 @@ class Main {
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color(0xffffff);
     this.camera = this.createCamera(options.camera, options.worldSize);
-    // this.world = this.grid(
-    //   options.worldSize,
-    //   options.cubeGeometry,
-    //   options.cellSpacing,
-    //   this.scene
-    // );
+    this.colors = options.colors;
     this.grid = new MasterGrid(options.worldSize, options.cubeGeometry, options.cellSpacing, this.scene);
-    this.grid.populateGrid();
-
+    this.grid.populateGrid(this.colors);
+    
     GraphicUtils.directionalLight({ scene: this.scene });
     GraphicUtils.ambientLight({ scene: this.scene, color: 0xffffff });
 
@@ -54,14 +49,14 @@ class Main {
     this.delta = this.clock.getDelta();
     // this.ticks = Math.round(this.delta / 60);
     // this.ticks = this.delta;
-    if ((this.clock.elapsedTime % 0.5 === 0)){
-      this.grid.populateGrid();
+    // if ((this.clock.elapsedTime % 0.5 === 0)){
       this.grid.cycle();
+      this.grid.populateGrid(this.colors);
 
       this.ticks += 1;
-      debugger
-    }
-    debugger
+      // debugger
+    // }
+    // debugger
     document.getElementById("ticks-span").textContent = `Ticks: ${this.ticks} | `;
     document.getElementById("delta-span").textContent = `Old Time: ${this.clock.oldTime }`;
     document.getElementById("time-span").textContent = ` Time: ${this.clock.getElapsedTime()}`;
