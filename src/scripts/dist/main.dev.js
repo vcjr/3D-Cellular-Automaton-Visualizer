@@ -87,21 +87,22 @@ function () {
     key: "render",
     value: function render(time) {
       // time *= 0.001; 
-      this.delta = this.clock.getDelta(); // this.ticks = Math.round(this.delta / 60);
+      var elapsedTime = this.clock.getElapsedTime();
+      var rounded = Math.round(elapsedTime * 10) / 10; // this.delta = this.clock.getDelta();
+      // this.ticks = Math.round(this.delta / 60);
       // this.ticks = this.delta;
-      // if ((this.clock.elapsedTime % 0.5 === 0)){
 
-      this.grid.cycle();
-      this.grid.populateGrid(this.colors);
-      this.ticks += 1; // debugger
-      // }
-      // debugger
+      if (rounded % 0.5 === 0) {
+        this.grid.cycle();
+        this.grid.populateGrid(this.colors);
+        this.ticks += 1;
+        console.log('Fire!');
+      } // debugger
+
 
       document.getElementById("ticks-span").textContent = "Ticks: ".concat(this.ticks, " | ");
       document.getElementById("delta-span").textContent = "Old Time: ".concat(this.clock.oldTime);
-      document.getElementById("time-span").textContent = " Time: ".concat(this.clock.getElapsedTime()); // document.getElementById("delta-span").textContent = `Delta: ${this.delta}`;
-      // if
-      // debugger
+      document.getElementById("time-span").textContent = " Time: ".concat(this.clock.getElapsedTime());
 
       if (GraphicUtils.resizeviewportToDisplaySize(this.renderer)) {
         var viewport = this.renderer.domElement;

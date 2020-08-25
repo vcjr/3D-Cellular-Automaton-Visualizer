@@ -46,24 +46,24 @@ class Main {
 
   render(time) {
     // time *= 0.001; 
-    this.delta = this.clock.getDelta();
+    const elapsedTime = this.clock.getElapsedTime();
+    const rounded = Math.round(elapsedTime * 10) / 10;
+    // this.delta = this.clock.getDelta();
     // this.ticks = Math.round(this.delta / 60);
     // this.ticks = this.delta;
-    // if ((this.clock.elapsedTime % 0.5 === 0)){
+    if (rounded % 0.5 === 0){
       this.grid.cycle();
       this.grid.populateGrid(this.colors);
 
       this.ticks += 1;
-      // debugger
-    // }
+      console.log('Fire!');
+    }
     // debugger
     document.getElementById("ticks-span").textContent = `Ticks: ${this.ticks} | `;
     document.getElementById("delta-span").textContent = `Old Time: ${this.clock.oldTime }`;
     document.getElementById("time-span").textContent = ` Time: ${this.clock.getElapsedTime()}`;
-    // document.getElementById("delta-span").textContent = `Delta: ${this.delta}`;
+    
 
-    // if
-    // debugger
     if (GraphicUtils.resizeviewportToDisplaySize(this.renderer)) {
       const viewport = this.renderer.domElement;
       this.camera.aspect = viewport.clientWidth / viewport.clientHeight;
