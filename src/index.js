@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
       fov: 75,
       aspect: 2,
       near: 0.1,
-      far: 10000,
+      far: 200,
     },
     cubeGeometry: {
       cubeWidth: 0.99,
@@ -23,6 +23,13 @@ document.addEventListener("DOMContentLoaded", () => {
       spacingX: 0,
       spacingY: 0,
       spacingZ: 0,
+    },
+    colors: {
+      color1: 0x00faff,
+      color2: 0x9936b7,
+      color3: 0xaa65bf,
+      color4: 0xad5071,
+      color5: 0xff4787,
     },
   };
 

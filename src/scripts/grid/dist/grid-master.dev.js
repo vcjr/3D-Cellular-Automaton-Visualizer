@@ -62,22 +62,17 @@ function () {
     this.cellOptions = cellOptions;
     this.cellSpacing = cellSpacing;
     this.worldSize = worldSize;
-    this.scene = scene; // This will setup the cells to be created
-
-    this.cells = MathUtils.create3DGrid(_cell["default"], worldSize); // this.cells = MathUtils.flattenGrid(MathUtils.create3DGrid(Cell, worldSize));
+    this.scene = scene;
+    this.cells = MathUtils.create3DGrid(_cell["default"], worldSize);
   }
 
   _createClass(MasterGrid, [{
     key: "cycle",
     value: function cycle() {
-      // We will populate the grid
-      // We then want to run the algorithm to check for the cell neigbors
-      var nextWorld = (0, _lodash.cloneDeep)(this.cells); // debugger // Check is nextWorld is same as allCells
-
-      var allCells = MathUtils.flattenGrid(nextWorld); // this.cells.forEach((cell, i) => {
-
+      var nextWorld = (0, _lodash.cloneDeep)(this.cells);
+      var allCells = MathUtils.flattenGrid(nextWorld);
       allCells.forEach(function (cell, i) {
-        var aliveNeighbors = 0; // This will return other cell cordinates to later compare
+        var aliveNeighbors = 0;
 
         for (var _i = 0; _i < MathUtils.compareArr.length; _i++) {
           var offSet = MathUtils.compareArr[_i];
@@ -97,44 +92,51 @@ function () {
           if (neighbor.alive) {
             aliveNeighbors += 1;
           }
-        } // Hardcode the automaton ruleset here for now
-
+        }
 
         var staysAlive = false;
 
         if (cell.alive) {
-          staysAlive = aliveNeighbors > 17 ? false : aliveNeighbors < 10 ? false : true;
+          staysAlive = aliveNeighbors > 4 ? false : aliveNeighbors < 3 ? false : true;
         } else {
-          staysAlive = aliveNeighbors === 2 ? true : false;
-        } //  debugger // compare this.cell to nextworld alive status
+          staysAlive = aliveNeighbors === 3 ? true : false;
+        } // Set neighborCount to it's current cycle Count
 
 
-        nextWorld[cell.x][cell.y][cell.z].alive = staysAlive; // nextWorld[i].alive = staysAlive;
+        nextWorld[cell.x][cell.y][cell.z].neighborCount = aliveNeighbors;
+        nextWorld[cell.x][cell.y][cell.z].alive = staysAlive;
       });
       this.cells = nextWorld;
-      debugger; // this.populateGrid();
-      // return this.cells;
-      // After we want to re-introduce the populateGrid() method since this.cells will have been updated with a new branch of cells
     }
   }, {
     key: "populateGrid",
     value: function populateGrid() {
       var _this = this;
 
+      var colorOptions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
       this.resetGrid();
-      var color = 0x00a878; // Can use Matrix3 to store all the locations of the cells which are the cubes
-
+      var color1 = colorOptions.color1,
+          color2 = colorOptions.color2,
+          color3 = colorOptions.color3,
+          color4 = colorOptions.color4,
+          color5 = colorOptions.color5;
+      var color = 0x00a878;
       var cellGeometry = GraphicUtils.basicGeoCube(this.cellOptions.cubeWidth, this.cellOptions.cubeHeight, this.cellOptions.cubeDepth);
+      debugger; // check the path to the meshmaterial's color
+
+      color = color5;
       var material = new THREE.MeshPhongMaterial({
         color: color
       });
       var cellMatrix = new THREE.Matrix4();
-      var count = Math.pow(this.worldSize, 3);
-      var cellMesh = new THREE.InstancedMesh(cellGeometry, material, count); // this.cells.forEach((cell, idx) => {
+      var count = Math.pow(this.worldSize, 3); // const cellMesh = new THREE.InstancedBufferGeometry(cellGeometry, material, count);
 
-      this.cubes = MathUtils.flattenGrid(this.cells);
+      var cellMesh = new THREE.InstancedMesh(cellGeometry, material, count);
+      this.cubes = MathUtils.flattenGrid(this.cells); // cellMesh.material.color = color5;
+
       this.cubes.forEach(function (cell, idx) {
-        // Will only add the cell to the grid matrix if alive
+        debugger; //Check cell.neigborCount
+
         if (cell.alive) {
           _this.setCellPositionMatrix(cellMatrix, cell);
 
@@ -154,8 +156,7 @@ function () {
       position.x = cell.x;
       position.y = cell.y;
       position.z = cell.z;
-      quaternion.setFromEuler(rotation); // Hard coded for now set to 1;
-
+      quaternion.setFromEuler(rotation);
       scale.x = scale.y = scale.z = 1;
       matrix.compose(position, quaternion, scale);
     }

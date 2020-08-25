@@ -5,8 +5,9 @@ class Cell {
     this.z = z;
 
     this.alive = alive;
-
+    this.neighborCount = null;
     let luck = this.randomLife();
+    
   }
 
   randomLife(){

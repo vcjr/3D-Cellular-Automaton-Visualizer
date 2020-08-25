@@ -44,15 +44,10 @@ function () {
     });
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color(0xffffff);
-    this.camera = this.createCamera(options.camera, options.worldSize); // this.world = this.grid(
-    //   options.worldSize,
-    //   options.cubeGeometry,
-    //   options.cellSpacing,
-    //   this.scene
-    // );
-
+    this.camera = this.createCamera(options.camera, options.worldSize);
+    this.colors = options.colors;
     this.grid = new _gridMaster["default"](options.worldSize, options.cubeGeometry, options.cellSpacing, this.scene);
-    this.grid.populateGrid();
+    this.grid.populateGrid(this.colors);
     GraphicUtils.directionalLight({
       scene: this.scene
     });
@@ -65,6 +60,8 @@ function () {
     var halfWorldSize = options.worldSize / 2;
     this.controls.target.set(halfWorldSize, halfWorldSize, halfWorldSize);
     this.clock = new THREE.Clock();
+    this.ticks = 0;
+    this.timePeriod = 0.0;
   } // Function to initialize a perspective camera
 
 
@@ -88,10 +85,19 @@ function () {
     }
   }, {
     key: "render",
-    value: function render(time) {
-      time *= 0.001;
-      this.delta = this.clock.getDelta();
-      this.ticks = Math.round(this.delta); // document.getElementById("ticks-span").innerText = `Ticks: ${this.ticks}`;
+    value: function render() {
+      var elapsedTime = this.clock.getElapsedTime();
+      var rounded = Math.round(elapsedTime * 10) / 10;
+
+      if (rounded % 0.5 === 0) {
+        this.grid.cycle();
+        this.grid.populateGrid(this.colors);
+        this.ticks += 1;
+        console.log('Fire!');
+      }
+
+      document.getElementById("ticks-span").textContent = "Ticks: ".concat(this.ticks, " | ");
+      document.getElementById("time-span").textContent = " Time: ".concat(Math.round(this.clock.getElapsedTime()));
 
       if (GraphicUtils.resizeviewportToDisplaySize(this.renderer)) {
         var viewport = this.renderer.domElement;
@@ -99,15 +105,12 @@ function () {
         this.camera.updateProjectionMatrix();
       }
 
-      this.grid.populateGrid();
-      this.grid.cycle();
       this.controls.update();
       this.renderer.render(this.scene, this.camera);
     }
   }, {
     key: "update",
     value: function update() {
-      // let ticks = Math.round( this.delta / 60);
       this.render();
     }
   }, {
@@ -116,8 +119,7 @@ function () {
       var _this = this;
 
       this.renderer.setAnimationLoop(function () {
-        _this.update(); // requestAnimationFrame(this.render.bind(this));
-
+        _this.update();
       });
     }
   }, {
