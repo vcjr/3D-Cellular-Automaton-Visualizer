@@ -21,9 +21,7 @@ export default class MasterGrid {
     this.worldSize = worldSize;
     this.scene = scene;
 
-    // This will setup the cells to be created
     this.cells = MathUtils.create3DGrid(Cell, worldSize);
-    // this.cells = MathUtils.flattenGrid(MathUtils.create3DGrid(Cell, worldSize));
   }
 
   cycle(){
@@ -33,7 +31,6 @@ export default class MasterGrid {
     allCells.forEach((cell, i) => {
       let aliveNeighbors = 0;
 
-      // This will return other cell cordinates to later compare
       for (let i = 0; i < MathUtils.compareArr.length; i++) {
         const offSet = MathUtils.compareArr[i];
         const { x, y, z } = offSet;
@@ -53,7 +50,7 @@ export default class MasterGrid {
           aliveNeighbors += 1;
         }
       }
-      // Hardcode the automaton ruleset here for now
+
       let staysAlive = false;
       if (cell.alive) {
         staysAlive =
@@ -66,17 +63,12 @@ export default class MasterGrid {
     });
 
     this.cells = nextWorld;
-    // debugger
-    // this.populateGrid();
-    // return this.cells;
-    // After we want to re-introduce the populateGrid() method since this.cells will have been updated with a new branch of cells
   }
 
   populateGrid(){
     this.resetGrid();
 
     const color = 0x00a878;
-    // Can use Matrix3 to store all the locations of the cells which are the cubes
     const cellGeometry = GraphicUtils.basicGeoCube(
       this.cellOptions.cubeWidth,
       this.cellOptions.cubeHeight,
@@ -91,11 +83,9 @@ export default class MasterGrid {
 
     const cellMesh = new THREE.InstancedMesh(cellGeometry, material, count);
 
-    // this.cells.forEach((cell, idx) => {
     this.cubes = MathUtils.flattenGrid(this.cells);
     this.cubes.forEach((cell, idx) => {
 
-      // Will only add the cell to the grid matrix if alive
       if(cell.alive) {
         this.setCellPositionMatrix(cellMatrix, cell);
         cellMesh.setMatrixAt(idx, cellMatrix);
@@ -118,7 +108,7 @@ export default class MasterGrid {
     position.z = cell.z;
 
     quaternion.setFromEuler( rotation );
-    // Hard coded for now set to 1;
+
     scale.x = scale.y = scale.z = 1;
 
     matrix.compose( position, quaternion, scale );

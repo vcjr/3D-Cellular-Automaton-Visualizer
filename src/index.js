@@ -26,8 +26,6 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   };
 
-  
-
   const main = new Main("visualizer-viewport", options);
 
   document.addEventListener("click", (event) => {
