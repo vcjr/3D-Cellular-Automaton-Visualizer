@@ -70,12 +70,8 @@ function () {
   _createClass(MasterGrid, [{
     key: "cycle",
     value: function cycle() {
-      // We will populate the grid
-      // We then want to run the algorithm to check for the cell neigbors
-      var nextWorld = (0, _lodash.cloneDeep)(this.cells); // debugger // Check is nextWorld is same as allCells
-
-      var allCells = MathUtils.flattenGrid(nextWorld); // this.cells.forEach((cell, i) => {
-
+      var nextWorld = (0, _lodash.cloneDeep)(this.cells);
+      var allCells = MathUtils.flattenGrid(nextWorld);
       allCells.forEach(function (cell, i) {
         var aliveNeighbors = 0; // This will return other cell cordinates to later compare
 
@@ -103,16 +99,15 @@ function () {
         var staysAlive = false;
 
         if (cell.alive) {
-          staysAlive = aliveNeighbors > 17 ? false : aliveNeighbors < 10 ? false : true;
+          staysAlive = aliveNeighbors > 3 ? false : aliveNeighbors < 2 ? false : true;
         } else {
-          staysAlive = aliveNeighbors === 2 ? true : false;
-        } //  debugger // compare this.cell to nextworld alive status
+          staysAlive = aliveNeighbors === 3 ? true : false;
+        }
 
-
-        nextWorld[cell.x][cell.y][cell.z].alive = staysAlive; // nextWorld[i].alive = staysAlive;
+        nextWorld[cell.x][cell.y][cell.z].alive = staysAlive;
       });
-      this.cells = nextWorld;
-      debugger; // this.populateGrid();
+      this.cells = nextWorld; // debugger
+      // this.populateGrid();
       // return this.cells;
       // After we want to re-introduce the populateGrid() method since this.cells will have been updated with a new branch of cells
     }

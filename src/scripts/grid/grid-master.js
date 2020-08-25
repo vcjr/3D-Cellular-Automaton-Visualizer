@@ -27,13 +27,9 @@ export default class MasterGrid {
   }
 
   cycle(){
-    // We will populate the grid
-    // We then want to run the algorithm to check for the cell neigbors
     let nextWorld = cloneDeep(this.cells);
 
-    // debugger // Check is nextWorld is same as allCells
     let allCells = MathUtils.flattenGrid(nextWorld);
-    // this.cells.forEach((cell, i) => {
     allCells.forEach((cell, i) => {
       let aliveNeighbors = 0;
 
@@ -61,18 +57,16 @@ export default class MasterGrid {
       let staysAlive = false;
       if (cell.alive) {
         staysAlive =
-          aliveNeighbors > 17 ? false : aliveNeighbors < 10 ? false : true;
+          aliveNeighbors > 3 ? false : aliveNeighbors < 2 ? false : true;
       } else {
-        staysAlive = aliveNeighbors === 2 ? true : false;
+        staysAlive = aliveNeighbors === 3 ? true : false;
       }
-    //  debugger // compare this.cell to nextworld alive status
       nextWorld[cell.x][cell.y][cell.z].alive = staysAlive;
-      // nextWorld[i].alive = staysAlive;
       
     });
 
     this.cells = nextWorld;
-    debugger
+    // debugger
     // this.populateGrid();
     // return this.cells;
     // After we want to re-introduce the populateGrid() method since this.cells will have been updated with a new branch of cells

@@ -11,20 +11,22 @@ document.addEventListener("DOMContentLoaded", () => {
       fov: 75,
       aspect: 2,
       near: 0.1,
-      far: 10000,
+      far: 200,
     },
     cubeGeometry: {
       cubeWidth: 0.99,
       cubeHeight: 0.99,
       cubeDepth: 0.99,
     },
-    worldSize: 25,
+    worldSize: 15,
     cellSpacing: {
       spacingX: 0,
       spacingY: 0,
       spacingZ: 0,
     },
   };
+
+  
 
   const main = new Main("visualizer-viewport", options);
 

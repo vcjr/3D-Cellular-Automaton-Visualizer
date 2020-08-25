@@ -30,6 +30,8 @@ class Main {
     const halfWorldSize = options.worldSize / 2;
     this.controls.target.set(halfWorldSize, halfWorldSize, halfWorldSize);
     this.clock = new THREE.Clock();
+    this.ticks = 0;
+    this.timePeriod = 0.0;
   }
 
   // Function to initialize a perspective camera
@@ -48,35 +50,44 @@ class Main {
   }
 
   render(time) {
-    time *= 0.001; 
+    // time *= 0.001; 
     this.delta = this.clock.getDelta();
-    this.ticks = Math.round(this.delta);
+    // this.ticks = Math.round(this.delta / 60);
+    // this.ticks = this.delta;
+    if ((this.clock.elapsedTime % 0.5 === 0)){
+      this.grid.populateGrid();
+      this.grid.cycle();
 
-    // document.getElementById("ticks-span").innerText = `Ticks: ${this.ticks}`;
-  
+      this.ticks += 1;
+      debugger
+    }
+    debugger
+    document.getElementById("ticks-span").textContent = `Ticks: ${this.ticks} | `;
+    document.getElementById("delta-span").textContent = `Old Time: ${this.clock.oldTime }`;
+    document.getElementById("time-span").textContent = ` Time: ${this.clock.getElapsedTime()}`;
+    // document.getElementById("delta-span").textContent = `Delta: ${this.delta}`;
+
+    // if
+    // debugger
     if (GraphicUtils.resizeviewportToDisplaySize(this.renderer)) {
       const viewport = this.renderer.domElement;
       this.camera.aspect = viewport.clientWidth / viewport.clientHeight;
       this.camera.updateProjectionMatrix();
     }
-    this.grid.populateGrid();
-    this.grid.cycle();
+
     this.controls.update();
     this.renderer.render(this.scene, this.camera);
   }
 
   update(){
     
-    // let ticks = Math.round( this.delta / 60);
-    
-    
     this.render();
+    
   }
 
   play() {
     this.renderer.setAnimationLoop( () => {
       this.update();
-      // requestAnimationFrame(this.render.bind(this));
     });
   }
 
