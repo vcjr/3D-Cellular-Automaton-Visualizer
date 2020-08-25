@@ -12,7 +12,7 @@ class Cell {
 
   randomLife(){
     const coin = Math.random();
-    this.alive = coin > 0.9;
+    this.alive = coin > 0.99;
   }
 
   toggleLife(){

@@ -54,7 +54,7 @@ export default class MasterGrid {
       let staysAlive = false;
       if (cell.alive) {
         staysAlive =
-          aliveNeighbors > 3 ? false : aliveNeighbors < 2 ? false : true;
+          aliveNeighbors > 4 ? false : aliveNeighbors < 3 ? false : true;
       } else {
         staysAlive = aliveNeighbors === 3 ? true : false;
       }

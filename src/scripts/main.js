@@ -44,13 +44,11 @@ class Main {
     return new Grid(worldSize, cubeGeometry, cellSpacing, scene);
   }
 
-  render(time) {
-    // time *= 0.001; 
+  render() {
+
     const elapsedTime = this.clock.getElapsedTime();
     const rounded = Math.round(elapsedTime * 10) / 10;
-    // this.delta = this.clock.getDelta();
-    // this.ticks = Math.round(this.delta / 60);
-    // this.ticks = this.delta;
+    
     if (rounded % 0.5 === 0){
       this.grid.cycle();
       this.grid.populateGrid(this.colors);
@@ -58,10 +56,9 @@ class Main {
       this.ticks += 1;
       console.log('Fire!');
     }
-    // debugger
+
     document.getElementById("ticks-span").textContent = `Ticks: ${this.ticks} | `;
-    document.getElementById("delta-span").textContent = `Old Time: ${this.clock.oldTime }`;
-    document.getElementById("time-span").textContent = ` Time: ${this.clock.getElapsedTime()}`;
+    document.getElementById("time-span").textContent = ` Time: ${Math.round(this.clock.getElapsedTime())}`;
     
 
     if (GraphicUtils.resizeviewportToDisplaySize(this.renderer)) {
