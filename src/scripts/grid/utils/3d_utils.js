@@ -76,6 +76,7 @@ export const ambientLight = ({ color = 0x404040, intensity = 0.4, scene }) => {
 };
 
 export const resizeviewportToDisplaySize = (renderer) => {
+  debugger
   const viewport = renderer.domElement;
   const width = viewport.clientWidth;
   const height = viewport.clientHeight;

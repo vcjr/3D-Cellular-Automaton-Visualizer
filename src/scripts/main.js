@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import * as GraphicUtils from "../scripts/grid/utils/3d_utils";
 import Grid from "./grid/grid";
-import MasterGrid from './grid/grid-master';
+import MasterGrid from "./grid/grid-master";
 import { cloneDeep } from "lodash";
 
 class Main {
@@ -14,9 +14,14 @@ class Main {
     this.scene.background = new THREE.Color(0xffffff);
     this.camera = this.createCamera(options.camera, options.worldSize);
     this.colors = options.colors;
-    this.grid = new MasterGrid(options.worldSize, options.cubeGeometry, options.cellSpacing, this.scene);
+    this.grid = new MasterGrid(
+      options.worldSize,
+      options.cubeGeometry,
+      options.cellSpacing,
+      this.scene
+    );
     this.grid.populateGrid(this.colors);
-    
+
     GraphicUtils.directionalLight({ scene: this.scene });
     GraphicUtils.ambientLight({ scene: this.scene, color: 0xffffff });
 
@@ -35,7 +40,7 @@ class Main {
     const camera = GraphicUtils.makeCamera(options);
     camera.position.x = posX;
     camera.position.y = posY;
-    camera.position.z = worldSize * 2;//posZ ;//+ options.worldSize * 2.5;
+    camera.position.z = worldSize * 2; //posZ ;//+ options.worldSize * 2.5;
 
     return camera;
   }
@@ -45,45 +50,60 @@ class Main {
   }
 
   render() {
-
     const elapsedTime = this.clock.getElapsedTime();
     const rounded = Math.round(elapsedTime * 10) / 10;
-    
-    if (rounded % 0.5 === 0){
+
+    const viewport = this.renderer.domElement;
+    console.log(viewport)
+    const width = viewport.clientWidth;
+    const height = viewport.clientHeight;
+
+    const forceResize = viewport.width !== width || viewport.height !== height;
+
+    if (forceResize) {
+      console.log(`Viewport ClientWidth: ${width}, Viewport ClientHeight: ${height}`)
+      this.renderer.setSize(width, height, false);
+      // this.renderer.setSize(width, 610, false);
+      this.camera.aspect = viewport.clientWidth / viewport.clientHeight;
+      this.camera.updateProjectionMatrix();
+    }
+    // if (GraphicUtils.resizeviewportToDisplaySize(this.renderer)) {
+    //   const viewport = this.renderer.domElement;
+    //   this.camera.aspect = viewport.clientWidth / viewport.clientHeight;
+    //   debugger;
+    //   this.camera.updateProjectionMatrix();
+    // }
+
+    if (rounded % 0.5 === 0) {
       this.grid.cycle();
       this.grid.populateGrid(this.colors);
 
       this.ticks += 1;
-      console.log('Fire!');
+      // console.log("Fire!");
     }
 
-    document.getElementById("ticks-span").textContent = `Ticks: ${this.ticks} | `;
-    document.getElementById("time-span").textContent = ` Time: ${Math.round(this.clock.getElapsedTime())}`;
-    
-
-    if (GraphicUtils.resizeviewportToDisplaySize(this.renderer)) {
-      const viewport = this.renderer.domElement;
-      this.camera.aspect = viewport.clientWidth / viewport.clientHeight;
-      this.camera.updateProjectionMatrix();
-    }
+    document.getElementById(
+      "ticks-span"
+    ).textContent = `Ticks: ${this.ticks} | `;
+    document.getElementById("time-span").textContent = ` Time: ${Math.round(
+      this.clock.getElapsedTime()
+    )}`;
 
     this.controls.update();
     this.renderer.render(this.scene, this.camera);
   }
 
-  update(){
-    
+  update() {
     this.render();
-    
   }
 
   play() {
-    this.renderer.setAnimationLoop( () => {
+    this.renderer.setAnimationLoop(() => {
       this.update();
     });
   }
 
-  stop(){
+  stop() {
     this.renderer.setAnimationLoop(null);
   }
 }
