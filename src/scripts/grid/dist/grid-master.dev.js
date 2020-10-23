@@ -121,8 +121,7 @@ function () {
           color4 = colorOptions.color4,
           color5 = colorOptions.color5;
       var color = 0x00a878;
-      var cellGeometry = GraphicUtils.basicGeoCube(this.cellOptions.cubeWidth, this.cellOptions.cubeHeight, this.cellOptions.cubeDepth);
-      debugger; // check the path to the meshmaterial's color
+      var cellGeometry = GraphicUtils.basicGeoCube(this.cellOptions.cubeWidth, this.cellOptions.cubeHeight, this.cellOptions.cubeDepth); // debugger // check the path to the meshmaterial's color
 
       color = color5;
       var material = new THREE.MeshPhongMaterial({
@@ -135,8 +134,7 @@ function () {
       this.cubes = MathUtils.flattenGrid(this.cells); // cellMesh.material.color = color5;
 
       this.cubes.forEach(function (cell, idx) {
-        debugger; //Check cell.neigborCount
-
+        // debugger //Check cell.neigborCount
         if (cell.alive) {
           _this.setCellPositionMatrix(cellMatrix, cell);
 
