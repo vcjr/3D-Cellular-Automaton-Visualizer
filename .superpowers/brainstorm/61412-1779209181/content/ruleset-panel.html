@@ -1,0 +1,111 @@
+<h2>How should the ruleset panel work?</h2>
+<p class="subtitle">The simulation survive/born rules are currently hardcoded. A pluggable system needs a UI. How much control should the user have?</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="presets" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:12px;">
+      <div style="background:#1a1a2e;border-radius:6px;padding:10px;font-size:10px;font-family:monospace;">
+        <div style="color:#ff4787;font-weight:bold;margin-bottom:8px;letter-spacing:1px;">RULESET</div>
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <div style="display:flex;align-items:center;gap:6px;background:rgba(255,71,135,0.15);border:1px solid rgba(255,71,135,0.5);border-radius:4px;padding:5px 8px;">
+            <div style="width:8px;height:8px;background:#ff4787;border-radius:50%;"></div>
+            <div>
+              <div style="color:#fff;font-size:9px;font-weight:bold;">3D Life</div>
+              <div style="color:#888;font-size:8px;">Survive: 3–4 · Born: 3</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,0.1);border-radius:4px;padding:5px 8px;">
+            <div style="width:8px;height:8px;background:rgba(255,255,255,0.3);border-radius:50%;"></div>
+            <div>
+              <div style="color:#aaa;font-size:9px;font-weight:bold;">Conway's 2D</div>
+              <div style="color:#666;font-size:8px;">Survive: 2–3 · Born: 3</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,0.1);border-radius:4px;padding:5px 8px;">
+            <div style="width:8px;height:8px;background:rgba(255,255,255,0.3);border-radius:50%;"></div>
+            <div>
+              <div style="color:#aaa;font-size:9px;font-weight:bold;">Sparse</div>
+              <div style="color:#666;font-size:8px;">Survive: 4–5 · Born: 4</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,0.1);border-radius:4px;padding:5px 8px;">
+            <div style="width:8px;height:8px;background:rgba(255,255,255,0.3);border-radius:50%;"></div>
+            <div>
+              <div style="color:#aaa;font-size:9px;font-weight:bold;">Dense</div>
+              <div style="color:#666;font-size:8px;">Survive: 2–5 · Born: 2–4</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Named preset rulesets</h3>
+      <p>Pick from a list of named rule configurations. Simple radio-button style. No manual editing.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="custom" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:12px;">
+      <div style="background:#1a1a2e;border-radius:6px;padding:10px;font-size:10px;font-family:monospace;">
+        <div style="color:#ff4787;font-weight:bold;margin-bottom:8px;letter-spacing:1px;">RULESET</div>
+        <div style="margin-bottom:6px;">
+          <div style="color:#888;font-size:8px;margin-bottom:3px;">SURVIVE when neighbors =</div>
+          <div style="display:flex;gap:3px;flex-wrap:wrap;">
+            <div style="width:18px;height:18px;background:rgba(255,71,135,0.3);border:1px solid #ff4787;border-radius:3px;display:flex;align-items:center;justify-content:center;color:#ff4787;font-size:9px;font-weight:bold;">3</div>
+            <div style="width:18px;height:18px;background:rgba(255,71,135,0.3);border:1px solid #ff4787;border-radius:3px;display:flex;align-items:center;justify-content:center;color:#ff4787;font-size:9px;font-weight:bold;">4</div>
+            <div style="width:18px;height:18px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:3px;display:flex;align-items:center;justify-content:center;color:#555;font-size:9px;">5</div>
+            <div style="width:18px;height:18px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:3px;display:flex;align-items:center;justify-content:center;color:#555;font-size:9px;">6</div>
+            <div style="width:18px;height:18px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:3px;display:flex;align-items:center;justify-content:center;color:#555;font-size:9px;">7</div>
+          </div>
+        </div>
+        <div>
+          <div style="color:#888;font-size:8px;margin-bottom:3px;">BORN when neighbors =</div>
+          <div style="display:flex;gap:3px;flex-wrap:wrap;">
+            <div style="width:18px;height:18px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:3px;display:flex;align-items:center;justify-content:center;color:#555;font-size:9px;">1</div>
+            <div style="width:18px;height:18px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:3px;display:flex;align-items:center;justify-content:center;color:#555;font-size:9px;">2</div>
+            <div style="width:18px;height:18px;background:rgba(255,71,135,0.3);border:1px solid #ff4787;border-radius:3px;display:flex;align-items:center;justify-content:center;color:#ff4787;font-size:9px;font-weight:bold;">3</div>
+            <div style="width:18px;height:18px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:3px;display:flex;align-items:center;justify-content:center;color:#555;font-size:9px;">4</div>
+            <div style="width:18px;height:18px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:3px;display:flex;align-items:center;justify-content:center;color:#555;font-size:9px;">5</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Toggle-button rule builder</h3>
+      <p>Click number buttons to toggle which neighbor counts trigger survive or born. Fully custom, no presets.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="both" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:12px;">
+      <div style="background:#1a1a2e;border-radius:6px;padding:10px;font-size:10px;font-family:monospace;">
+        <div style="color:#ff4787;font-weight:bold;margin-bottom:6px;letter-spacing:1px;">RULESET</div>
+        <div style="display:flex;gap:4px;margin-bottom:7px;">
+          <div style="background:rgba(255,71,135,0.2);border:1px solid #ff4787;border-radius:3px;padding:2px 6px;color:#ff4787;font-size:8px;font-weight:bold;">3D Life</div>
+          <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:3px;padding:2px 6px;color:#888;font-size:8px;">Conway</div>
+          <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:3px;padding:2px 6px;color:#888;font-size:8px;">Sparse</div>
+          <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:3px;padding:2px 6px;color:#888;font-size:8px;">Dense</div>
+        </div>
+        <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:6px;">
+          <div style="color:#888;font-size:8px;margin-bottom:3px;">SURVIVE</div>
+          <div style="display:flex;gap:2px;margin-bottom:4px;">
+            <div style="width:16px;height:16px;background:rgba(255,71,135,0.3);border:1px solid #ff4787;border-radius:2px;display:flex;align-items:center;justify-content:center;color:#ff4787;font-size:8px;">3</div>
+            <div style="width:16px;height:16px;background:rgba(255,71,135,0.3);border:1px solid #ff4787;border-radius:2px;display:flex;align-items:center;justify-content:center;color:#ff4787;font-size:8px;">4</div>
+            <div style="width:16px;height:16px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:2px;display:flex;align-items:center;justify-content:center;color:#555;font-size:8px;">5</div>
+          </div>
+          <div style="color:#888;font-size:8px;margin-bottom:3px;">BORN</div>
+          <div style="display:flex;gap:2px;">
+            <div style="width:16px;height:16px;background:rgba(255,71,135,0.3);border:1px solid #ff4787;border-radius:2px;display:flex;align-items:center;justify-content:center;color:#ff4787;font-size:8px;">3</div>
+            <div style="width:16px;height:16px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:2px;display:flex;align-items:center;justify-content:center;color:#555;font-size:8px;">4</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Presets + fine-tune</h3>
+      <p>Preset chips at the top load a named ruleset. Toggle buttons below let you tweak it. Selecting a preset pre-fills the toggles.</p>
+    </div>
+  </div>
+
+</div>

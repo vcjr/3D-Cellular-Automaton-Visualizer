@@ -1,19 +1,17 @@
 @font-face {
   font-family: 'BP Dots Diamond Regular';
-  src: url('/src/fonts/bpdotsdiamond-webfont.woff2') format('woff2'),
-    url('/src/fonts/bpdotsdiamond-webfont.woff') format('woff');
+  src: url('../fonts/bpdotsdiamond-webfont.woff2') format('woff2'),
+    url('../fonts/bpdotsdiamond-webfont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
-
 }
 
 @font-face {
   font-family: 'BP Dots Square Bold';
-  src: url('/src/fonts/bpdotssquarebold-webfont.woff2') format('woff2'),
-    url('/src/fonts/bpdotssquarebold-webfont.woff') format('woff');
+  src: url('../fonts/bpdotssquarebold-webfont.woff2') format('woff2'),
+    url('../fonts/bpdotssquarebold-webfont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
-
 }
 
 * {
@@ -110,28 +108,6 @@ p {
 /* } */
 
 
-.play-buttons {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 23px;
-  padding-bottom: 20px;
-}
-
-.play-buttons button {
-  font-family: 'BP Dots Square Bold';
-  min-width: 50px;
-  padding: 5px;
-  margin-right: 20px;
-}
-
-.play-buttons ul {
-  list-style: none;
-}
-
 /* MODAL CSS */
 
 .modal {
@@ -208,4 +184,260 @@ p {
 .social-links a:hover {
   /* color: white; */
   color: #ba7bef;
+}
+
+/* ── Control Bar ─────────────────────────────── */
+
+.control-bar {
+  padding: 12px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.control-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.control-row button {
+  font-family: 'BP Dots Square Bold';
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.15s;
+}
+
+.control-row button:hover {
+  background: rgba(255, 71, 135, 0.25);
+  border-color: #ff4787;
+}
+
+#ticks-span,
+#time-span {
+  color: #aaa;
+  font-family: 'BP Dots Diamond Regular';
+  font-size: 13px;
+}
+
+.size-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'BP Dots Square Bold';
+  font-size: 13px;
+  color: #aaa;
+}
+
+#size-input {
+  width: 52px;
+  padding: 4px 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  color: #fff;
+  font-family: 'BP Dots Diamond Regular';
+  font-size: 13px;
+  text-align: center;
+}
+
+#size-input:focus {
+  outline: none;
+  border-color: rgba(255, 71, 135, 0.5);
+}
+
+#size-input.pending {
+  border-color: #ff4787;
+  color: #ff4787;
+}
+
+.control-panels {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.panel {
+  flex: 1;
+  min-width: 280px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.panel-title {
+  font-family: 'BP Dots Square Bold';
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: #ff4787;
+}
+
+/* ── Preset rows (palette chips + ruleset chips) ─ */
+
+.preset-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* ── Palette chips ───────────────────────────── */
+
+.palette-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.palette-chip:hover {
+  border-color: rgba(255, 71, 135, 0.5);
+  background: rgba(255, 71, 135, 0.08);
+}
+
+.palette-chip.active {
+  border-color: #ff4787;
+  background: rgba(255, 71, 135, 0.15);
+}
+
+.palette-chip .palette-dot-row {
+  display: flex;
+  gap: 3px;
+}
+
+.palette-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+.palette-name {
+  font-family: 'BP Dots Diamond Regular';
+  font-size: 9px;
+  color: #aaa;
+  white-space: nowrap;
+}
+
+/* ── Swatch row (color customization) ────────── */
+
+.swatch-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.swatch-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  cursor: pointer;
+}
+
+.swatch-label {
+  font-family: 'BP Dots Diamond Regular';
+  font-size: 9px;
+  color: #888;
+}
+
+.color-swatch {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  cursor: pointer;
+  background: none;
+}
+
+.color-swatch:hover {
+  border-color: #ff4787;
+}
+
+/* ── Ruleset chips ───────────────────────────── */
+
+.ruleset-chip {
+  padding: 4px 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  color: #aaa;
+  font-family: 'BP Dots Diamond Regular';
+  font-size: 11px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+
+.ruleset-chip:hover {
+  border-color: rgba(255, 71, 135, 0.5);
+  color: #fff;
+}
+
+.ruleset-chip.active {
+  border-color: #ff4787;
+  background: rgba(255, 71, 135, 0.15);
+  color: #ff4787;
+}
+
+/* ── Toggle buttons ──────────────────────────── */
+
+.toggle-section {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.toggle-label {
+  font-family: 'BP Dots Square Bold';
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: #666;
+}
+
+.toggle-row {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.toggle-btn {
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  color: #555;
+  font-family: 'BP Dots Diamond Regular';
+  font-size: 11px;
+  cursor: pointer;
+  transition: border-color 0.12s, background 0.12s, color 0.12s;
+}
+
+.toggle-btn:hover {
+  border-color: rgba(255, 71, 135, 0.4);
+  color: #aaa;
+}
+
+.toggle-btn.active {
+  border-color: #ff4787;
+  background: rgba(255, 71, 135, 0.2);
+  color: #ff4787;
 }

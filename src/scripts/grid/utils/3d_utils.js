@@ -1,16 +1,6 @@
 import * as THREE from "three";
 
 // 3d Utility file to create Three.js functions
-export const makeInstance = (geometry, color, x, scene) => {
-  const material = new THREE.MeshPhongMaterial({ color });
-
-  const cube = new THREE.Mesh(geometry, material);
-  scene.add(cube);
-
-  cube.position.x = x;
-
-  return cube;
-};
 
 // Will take a gemetry, cell object and a scene and create a cube then place the cube based on their own positions
 export const makeCube = (geometry, cell, cellSpacing, scene) => {
@@ -48,8 +38,6 @@ export const makeCube = (geometry, cell, cellSpacing, scene) => {
   }
 };
 
-// export const updateCube =
-
 export const makeCamera = (options) => {
   const { fov, aspect, near, far } = options;
   return new THREE.PerspectiveCamera(fov, aspect, near, far);
@@ -76,7 +64,6 @@ export const ambientLight = ({ color = 0x404040, intensity = 0.4, scene }) => {
 };
 
 export const resizeviewportToDisplaySize = (renderer) => {
-  debugger
   const viewport = renderer.domElement;
   const width = viewport.clientWidth;
   const height = viewport.clientHeight;

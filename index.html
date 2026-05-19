@@ -31,14 +31,33 @@
   <div class="viewport-container">
     <canvas id="visualizer-viewport"></canvas>
   </div>
-  <div class="play-buttons">
-    <button id="play-button">PLAY</button>
-    <button id="stop-button">STOP</button>
-    <button id="open-modal">INSTRUCTIONS</button>
-    <ul>
-      <li id="ticks-span">Ticks: 0</li>
-      <li id="time-span">Time: 0</li>
-    </ul>
+  <div class="control-bar">
+    <div class="control-row">
+      <button id="play-button">PLAY</button>
+      <button id="stop-button">STOP</button>
+      <button id="reset-button">RESET</button>
+      <label class="size-label">SIZE <input type="number" id="size-input" min="5" max="100" value="25" /></label>
+      <button id="open-modal">INSTRUCTIONS</button>
+      <span id="ticks-span">Ticks: 0 |</span>
+      <span id="time-span"> Time: 0</span>
+    </div>
+    <div class="control-panels">
+      <div class="panel" id="color-panel">
+        <div class="panel-title">COLOR THEME</div>
+        <div class="preset-row" id="color-presets"></div>
+        <div class="swatch-row" id="color-swatches"></div>
+      </div>
+      <div class="panel" id="ruleset-panel">
+        <div class="panel-title">RULESET</div>
+        <div class="preset-row" id="ruleset-presets"></div>
+        <div class="toggle-section">
+          <span class="toggle-label">SURVIVE</span>
+          <div class="toggle-row" id="survive-toggles"></div>
+          <span class="toggle-label">BORN</span>
+          <div class="toggle-row" id="born-toggles"></div>
+        </div>
+      </div>
+    </div>
   </div>
   <p>Made with ❤️ by Victor C.</p>
 

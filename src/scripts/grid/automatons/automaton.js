@@ -1,24 +1,8 @@
-
-// Conways Automatons Rule Set
-/*
-  Alive Cell:
-    - Cell's with one or no neighbords dies from solitude
-    - Cell's with four or more neighbors dies from overpopulation
-    - Cell's with two or three neighbors survive
-
-  Dead Cell:
-    - Cell's with three neighbors become populated
-*/
-const conways = {
-  alive: [
-    {"neighbors": "<= 1"}, 
-    {"neighbors": ">= 4"}  
-  ] ,
-  dead: [
-    {"neighbors": "=== 3"}
-  ]
+export const RULESETS = {
+  '3D Life': { survive: new Set([3, 4]), born: new Set([3]) },
+  'Conway':  { survive: new Set([2, 3]), born: new Set([3]) },
+  'Sparse':  { survive: new Set([4, 5]), born: new Set([4]) },
+  'Dense':   { survive: new Set([2, 3, 4, 5]), born: new Set([2, 3]) },
 };
 
-const victors = {};
-
-const ruleSets = [conways, victors];
+export const DEFAULT_RULESET = '3D Life';

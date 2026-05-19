@@ -1,0 +1,140 @@
+<h2>How should the color theme panel work?</h2>
+<p class="subtitle">The app has 5 colors defined. Cells currently all render in color5. With neighbor-count coloring, the 5 colors will map to 0–4+ neighbors. How should the user control them?</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="presets" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:12px;">
+      <div style="background:#1a1a2e;border-radius:6px;padding:10px;font-size:10px;font-family:monospace;">
+        <div style="color:#ff4787;font-weight:bold;margin-bottom:8px;letter-spacing:1px;">COLOR THEME</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <div style="border:2px solid #ff4787;border-radius:6px;padding:4px 6px;cursor:pointer;">
+            <div style="display:flex;gap:3px;margin-bottom:3px;">
+              <div style="width:12px;height:12px;border-radius:2px;background:#00faff;"></div>
+              <div style="width:12px;height:12px;border-radius:2px;background:#9936b7;"></div>
+              <div style="width:12px;height:12px;border-radius:2px;background:#aa65bf;"></div>
+              <div style="width:12px;height:12px;border-radius:2px;background:#ad5071;"></div>
+              <div style="width:12px;height:12px;border-radius:2px;background:#ff4787;"></div>
+            </div>
+            <div style="color:#aaa;font-size:8px;">Neon</div>
+          </div>
+          <div style="border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:4px 6px;cursor:pointer;">
+            <div style="display:flex;gap:3px;margin-bottom:3px;">
+              <div style="width:12px;height:12px;border-radius:2px;background:#00ff88;"></div>
+              <div style="width:12px;height:12px;border-radius:2px;background:#00cc66;"></div>
+              <div style="width:12px;height:12px;border-radius:2px;background:#009944;"></div>
+              <div style="width:12px;height:12px;border-radius:2px;background:#006622;"></div>
+              <div style="width:12px;height:12px;border-radius:2px;background:#003311;"></div>
+            </div>
+            <div style="color:#aaa;font-size:8px;">Matrix</div>
+          </div>
+          <div style="border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:4px 6px;cursor:pointer;">
+            <div style="display:flex;gap:3px;margin-bottom:3px;">
+              <div style="width:12px;height:12px;border-radius:2px;background:#ff6b35;"></div>
+              <div style="width:12px;height:12px;border-radius:2px;background:#ff8c42;"></div>
+              <div style="width:12px;height:12px;border-radius:2px;background:#ffb347;"></div>
+              <div style="width:12px;height:12px;border-radius:2px;background:#ffd700;"></div>
+              <div style="width:12px;height:12px;border-radius:2px;background:#fff176;"></div>
+            </div>
+            <div style="color:#aaa;font-size:8px;">Fire</div>
+          </div>
+          <div style="border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:4px 6px;cursor:pointer;">
+            <div style="display:flex;gap:3px;margin-bottom:3px;">
+              <div style="width:12px;height:12px;border-radius:2px;background:#4fc3f7;"></div>
+              <div style="width:12px;height:12px;border-radius:2px;background:#29b6f6;"></div>
+              <div style="width:12px;height:12px;border-radius:2px;background:#039be5;"></div>
+              <div style="width:12px;height:12px;border-radius:2px;background:#0277bd;"></div>
+              <div style="width:12px;height:12px;border-radius:2px;background:#01579b;"></div>
+            </div>
+            <div style="color:#aaa;font-size:8px;">Ocean</div>
+          </div>
+          <div style="border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:4px 6px;cursor:pointer;">
+            <div style="display:flex;gap:3px;margin-bottom:3px;">
+              <div style="width:12px;height:12px;border-radius:2px;background:#e040fb;"></div>
+              <div style="width:12px;height:12px;border-radius:2px;background:#ab47bc;"></div>
+              <div style="width:12px;height:12px;border-radius:2px;background:#7b1fa2;"></div>
+              <div style="width:12px;height:12px;border-radius:2px;background:#4a148c;"></div>
+              <div style="width:12px;height:12px;border-radius:2px;background:#1a0030;"></div>
+            </div>
+            <div style="color:#aaa;font-size:8px;">Void</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Preset palettes</h3>
+      <p>5–6 curated themes to pick from. One click changes all 5 neighbor colors at once. Simple, always looks good.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="pickers" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:12px;">
+      <div style="background:#1a1a2e;border-radius:6px;padding:10px;font-size:10px;font-family:monospace;">
+        <div style="color:#ff4787;font-weight:bold;margin-bottom:8px;letter-spacing:1px;">COLOR THEME</div>
+        <div style="display:flex;flex-direction:column;gap:5px;">
+          <div style="display:flex;align-items:center;gap:6px;">
+            <div style="color:#888;font-size:9px;width:50px;">1 neighbor</div>
+            <div style="width:20px;height:20px;background:#00faff;border-radius:3px;border:1px solid rgba(255,255,255,0.2);"></div>
+            <div style="color:#00faff;font-size:9px;">#00FAFF</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <div style="color:#888;font-size:9px;width:50px;">2 neighbors</div>
+            <div style="width:20px;height:20px;background:#9936b7;border-radius:3px;border:1px solid rgba(255,255,255,0.2);"></div>
+            <div style="color:#9936b7;font-size:9px;">#9936B7</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <div style="color:#888;font-size:9px;width:50px;">3 neighbors</div>
+            <div style="width:20px;height:20px;background:#aa65bf;border-radius:3px;border:1px solid rgba(255,255,255,0.2);"></div>
+            <div style="color:#aa65bf;font-size:9px;">#AA65BF</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <div style="color:#888;font-size:9px;width:50px;">4 neighbors</div>
+            <div style="width:20px;height:20px;background:#ad5071;border-radius:3px;border:1px solid rgba(255,255,255,0.2);"></div>
+            <div style="color:#ad5071;font-size:9px;">#AD5071</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <div style="color:#888;font-size:9px;width:50px;">5+ neighbors</div>
+            <div style="width:20px;height:20px;background:#ff4787;border-radius:3px;border:1px solid rgba(255,255,255,0.2);"></div>
+            <div style="color:#ff4787;font-size:9px;">#FF4787</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Individual color pickers</h3>
+      <p>Pick each of the 5 neighbor-count colors separately using the browser's native color picker. Full control, more steps.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="both" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:12px;">
+      <div style="background:#1a1a2e;border-radius:6px;padding:10px;font-size:10px;font-family:monospace;">
+        <div style="color:#ff4787;font-weight:bold;margin-bottom:6px;letter-spacing:1px;">COLOR THEME</div>
+        <div style="display:flex;gap:4px;margin-bottom:8px;">
+          <div style="border:2px solid #ff4787;border-radius:4px;padding:3px 5px;display:flex;gap:2px;">
+            <div style="width:10px;height:10px;border-radius:1px;background:#00faff;"></div><div style="width:10px;height:10px;border-radius:1px;background:#9936b7;"></div><div style="width:10px;height:10px;border-radius:1px;background:#aa65bf;"></div><div style="width:10px;height:10px;border-radius:1px;background:#ad5071;"></div><div style="width:10px;height:10px;border-radius:1px;background:#ff4787;"></div>
+          </div>
+          <div style="border:1px solid rgba(255,255,255,0.15);border-radius:4px;padding:3px 5px;display:flex;gap:2px;">
+            <div style="width:10px;height:10px;border-radius:1px;background:#00ff88;"></div><div style="width:10px;height:10px;border-radius:1px;background:#00cc66;"></div><div style="width:10px;height:10px;border-radius:1px;background:#009944;"></div><div style="width:10px;height:10px;border-radius:1px;background:#006622;"></div><div style="width:10px;height:10px;border-radius:1px;background:#003311;"></div>
+          </div>
+          <div style="border:1px solid rgba(255,255,255,0.15);border-radius:4px;padding:3px 5px;display:flex;gap:2px;">
+            <div style="width:10px;height:10px;border-radius:1px;background:#ff6b35;"></div><div style="width:10px;height:10px;border-radius:1px;background:#ff8c42;"></div><div style="width:10px;height:10px;border-radius:1px;background:#ffb347;"></div><div style="width:10px;height:10px;border-radius:1px;background:#ffd700;"></div><div style="width:10px;height:10px;border-radius:1px;background:#fff176;"></div>
+          </div>
+        </div>
+        <div style="border-top:1px solid rgba(255,255,255,0.1);padding-top:6px;display:flex;gap:4px;">
+          <div style="color:#888;font-size:8px;padding-top:2px;">Customize:</div>
+          <div style="width:14px;height:14px;background:#00faff;border-radius:2px;border:1px solid rgba(255,255,255,0.3);"></div>
+          <div style="width:14px;height:14px;background:#9936b7;border-radius:2px;border:1px solid rgba(255,255,255,0.3);"></div>
+          <div style="width:14px;height:14px;background:#aa65bf;border-radius:2px;border:1px solid rgba(255,255,255,0.3);"></div>
+          <div style="width:14px;height:14px;background:#ad5071;border-radius:2px;border:1px solid rgba(255,255,255,0.3);"></div>
+          <div style="width:14px;height:14px;background:#ff4787;border-radius:2px;border:1px solid rgba(255,255,255,0.3);"></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Presets + customize</h3>
+      <p>Preset palettes on top for quick picks. Individual color swatches below to override any single color. Best of both.</p>
+    </div>
+  </div>
+
+</div>

@@ -1,9 +1,7 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import * as GraphicUtils from "../scripts/grid/utils/3d_utils";
-import Grid from "./grid/grid";
+import * as GraphicUtils from "./grid/utils/3d_utils";
 import MasterGrid from "./grid/grid-master";
-import { cloneDeep } from "lodash";
 
 class Main {
   constructor(element, options) {
@@ -14,11 +12,15 @@ class Main {
     this.scene.background = new THREE.Color(0xffffff);
     this.camera = this.createCamera(options.camera, options.worldSize);
     this.colors = options.colors;
+    this.cubeGeometry = options.cubeGeometry;
+    this.cellSpacing = options.cellSpacing;
+    this.worldSize = options.worldSize;
     this.grid = new MasterGrid(
       options.worldSize,
       options.cubeGeometry,
       options.cellSpacing,
-      this.scene
+      this.scene,
+      options.ruleset
     );
     this.grid.populateGrid(this.colors);
 
@@ -31,22 +33,18 @@ class Main {
     this.controls.target.set(halfWorldSize, halfWorldSize, halfWorldSize);
     this.clock = new THREE.Clock();
     this.ticks = 0;
-    this.timePeriod = 0.0;
+    this.ticksEl = document.getElementById("ticks-span");
+    this.timeEl = document.getElementById("time-span");
   }
 
-  // Function to initialize a perspective camera
   createCamera(options, worldSize) {
-    const { posX, posY, posZ } = options;
+    const { posX, posY } = options;
     const camera = GraphicUtils.makeCamera(options);
     camera.position.x = posX;
     camera.position.y = posY;
-    camera.position.z = worldSize * 2; //posZ ;//+ options.worldSize * 2.5;
+    camera.position.z = worldSize * 2;
 
     return camera;
-  }
-
-  grid(worldSize, cubeGeometry, cellSpacing, scene) {
-    return new Grid(worldSize, cubeGeometry, cellSpacing, scene);
   }
 
   render() {
@@ -54,40 +52,25 @@ class Main {
     const rounded = Math.round(elapsedTime * 10) / 10;
 
     const viewport = this.renderer.domElement;
-    console.log(viewport)
     const width = viewport.clientWidth;
     const height = viewport.clientHeight;
 
     const forceResize = viewport.width !== width || viewport.height !== height;
 
     if (forceResize) {
-      console.log(`Viewport ClientWidth: ${width}, Viewport ClientHeight: ${height}`)
       this.renderer.setSize(width, height, false);
-      // this.renderer.setSize(width, 610, false);
       this.camera.aspect = viewport.clientWidth / viewport.clientHeight;
       this.camera.updateProjectionMatrix();
     }
-    // if (GraphicUtils.resizeviewportToDisplaySize(this.renderer)) {
-    //   const viewport = this.renderer.domElement;
-    //   this.camera.aspect = viewport.clientWidth / viewport.clientHeight;
-    //   debugger;
-    //   this.camera.updateProjectionMatrix();
-    // }
 
     if (rounded % 0.5 === 0) {
       this.grid.cycle();
       this.grid.populateGrid(this.colors);
-
       this.ticks += 1;
-      // console.log("Fire!");
     }
 
-    document.getElementById(
-      "ticks-span"
-    ).textContent = `Ticks: ${this.ticks} | `;
-    document.getElementById("time-span").textContent = ` Time: ${Math.round(
-      this.clock.getElapsedTime()
-    )}`;
+    if (this.ticksEl) this.ticksEl.textContent = `Ticks: ${this.ticks} | `;
+    if (this.timeEl) this.timeEl.textContent = ` Time: ${Math.round(elapsedTime)}`;
 
     this.controls.update();
     this.renderer.render(this.scene, this.camera);
@@ -95,6 +78,27 @@ class Main {
 
   update() {
     this.render();
+  }
+
+  reset(newSize) {
+    this.stop();
+    const currentRuleset = this.grid.ruleset;
+    this.grid.destroy();
+    this.worldSize = newSize;
+    this.grid = new MasterGrid(
+      newSize,
+      this.cubeGeometry,
+      this.cellSpacing,
+      this.scene,
+      currentRuleset
+    );
+    this.grid.populateGrid(this.colors);
+    this.camera.position.z = newSize * 2;
+    const half = newSize / 2;
+    this.controls.target.set(half, half, half);
+    this.controls.update();
+    this.ticks = 0;
+    this.clock = new THREE.Clock();
   }
 
   play() {

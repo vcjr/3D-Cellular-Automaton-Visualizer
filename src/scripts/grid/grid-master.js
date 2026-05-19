@@ -1,79 +1,81 @@
 import * as THREE from "three";
 import Cell from "./cell";
-
 import * as MathUtils from "./utils/math_utils";
 import * as GraphicUtils from "./utils/3d_utils";
-
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { BufferGeometryUtils } from "three/examples/jsm/utils/BufferGeometryUtils";
-import { GUI } from "three/examples/jsm/libs/dat.gui.module";
-
-import Stats from "three/examples/jsm/libs/stats.module";
-
 import { cloneDeep } from "lodash";
+import { RULESETS, DEFAULT_RULESET } from "./automatons/automaton";
 
-(function () {
-  var script = document.createElement("script");
-  script.onload = function () {
-    var stats = new Stats();
-    document.body.appendChild(stats.dom);
-    requestAnimationFrame(function loop() {
-      stats.update();
-      requestAnimationFrame(loop);
-    });
-  };
-  script.src = "//mrdoob.github.io/stats.js/build/stats.min.js";
-  document.head.appendChild(script);
-})();
+function colorForNeighborCount(count, colors) {
+  if (count <= 1) return colors.color1;
+  if (count === 2) return colors.color2;
+  if (count === 3) return colors.color3;
+  if (count === 4) return colors.color4;
+  return colors.color5;
+}
 
 export default class MasterGrid {
-  constructor(worldSize, cellOptions, cellSpacing, scene) {
-    this.cellOptions = cellOptions;
-    this.cellSpacing = cellSpacing;
+  constructor(worldSize, cellOptions, cellSpacing, scene, ruleset) {
     this.worldSize = worldSize;
     this.scene = scene;
-
+    this.ruleset = ruleset || RULESETS[DEFAULT_RULESET];
+    this.colors = null;
     this.cells = MathUtils.create3DGrid(Cell, worldSize);
+
+    const cellGeometry = GraphicUtils.basicGeoCube(
+      cellOptions.cubeWidth,
+      cellOptions.cubeHeight,
+      cellOptions.cubeDepth
+    );
+    const count = Math.pow(worldSize, 3);
+    this.material = new THREE.MeshPhongMaterial();
+    this.cellMesh = new THREE.InstancedMesh(cellGeometry, this.material, count);
+    this.scene.add(this.cellMesh);
+  }
+
+  destroy() {
+    this.scene.remove(this.cellMesh);
+    this.cellMesh.geometry.dispose();
+    this.material.dispose();
+  }
+
+  setRuleset(ruleset) {
+    this.ruleset = {
+      survive: new Set(ruleset.survive),
+      born: new Set(ruleset.born),
+    };
   }
 
   cycle() {
-    let nextWorld = cloneDeep(this.cells);
+    const snapshot = this.cells;
+    const nextWorld = cloneDeep(this.cells);
+    const allCells = MathUtils.flattenGrid(snapshot);
 
-    let allCells = MathUtils.flattenGrid(nextWorld);
-    allCells.forEach((cell, i) => {
+    allCells.forEach((cell) => {
       let aliveNeighbors = 0;
 
       for (let i = 0; i < MathUtils.compareArr.length; i++) {
-        const offSet = MathUtils.compareArr[i];
-        const { x, y, z } = offSet;
-
-        let newX = cell.x - x;
-        let newY = cell.y - y;
-        let newZ = cell.z - z;
+        const { x, y, z } = MathUtils.compareArr[i];
+        const newX = cell.x - x;
+        const newY = cell.y - y;
+        const newZ = cell.z - z;
 
         if (
-          nextWorld[newX] === undefined ||
-          nextWorld[newX][newY] === undefined ||
-          nextWorld[newX][newY][newZ] === undefined
+          snapshot[newX] === undefined ||
+          snapshot[newX][newY] === undefined ||
+          snapshot[newX][newY][newZ] === undefined
         ) {
           continue;
         }
 
-        let neighbor = nextWorld[newX][newY][newZ];
-
-        if (neighbor.alive) {
+        if (snapshot[newX][newY][newZ].alive) {
           aliveNeighbors += 1;
         }
       }
 
-      let staysAlive = false;
-      if (cell.alive) {
-        staysAlive =
-          aliveNeighbors > 4 ? false : aliveNeighbors < 3 ? false : true;
-      } else {
-        staysAlive = aliveNeighbors === 3 ? true : false;
-      }
-      // Set neighborCount to it's current cycle Count
+      const staysAlive = cell.alive
+        ? this.ruleset.survive.has(aliveNeighbors)
+        : this.ruleset.born.has(aliveNeighbors);
+
       nextWorld[cell.x][cell.y][cell.z].neighborCount = aliveNeighbors;
       nextWorld[cell.x][cell.y][cell.z].alive = staysAlive;
     });
@@ -82,71 +84,36 @@ export default class MasterGrid {
   }
 
   populateGrid(colorOptions = null) {
-    this.resetGrid();
-    const { color1, color2, color3, color4, color5 } = colorOptions;
+    if (colorOptions) {
+      this.colors = colorOptions;
+    }
+    if (!this.colors) return;
 
-    let color = 0x00a878;
-    const cellGeometry = GraphicUtils.basicGeoCube(
-      this.cellOptions.cubeWidth,
-      this.cellOptions.cubeHeight,
-      this.cellOptions.cubeDepth
-    );
+    const aliveMatrix = new THREE.Matrix4();
+    const hiddenMatrix = new THREE.Matrix4().makeScale(0, 0, 0);
+    const color = new THREE.Color();
 
-    // debugger // check the path to the meshmaterial's color
-    color = color5;
-    const material = new THREE.MeshPhongMaterial({ color });
-
-    const cellMatrix = new THREE.Matrix4();
-
-    let count = Math.pow(this.worldSize, 3);
-
-    // const cellMesh = new THREE.InstancedBufferGeometry(cellGeometry, material, count);
-    const cellMesh = new THREE.InstancedMesh(cellGeometry, material, count);
-
-    this.cubes = MathUtils.flattenGrid(this.cells);
-    // cellMesh.material.color = color5;
-    this.cubes.forEach((cell, idx) => {
-      // debugger //Check cell.neigborCount
+    MathUtils.flattenGrid(this.cells).forEach((cell, idx) => {
       if (cell.alive) {
-        this.setCellPositionMatrix(cellMatrix, cell);
-        cellMesh.setMatrixAt(idx, cellMatrix);
+        this.setCellPositionMatrix(aliveMatrix, cell);
+        this.cellMesh.setMatrixAt(idx, aliveMatrix);
+        color.set(colorForNeighborCount(cell.neighborCount, this.colors));
+        this.cellMesh.setColorAt(idx, color);
+      } else {
+        this.cellMesh.setMatrixAt(idx, hiddenMatrix);
       }
     });
 
-    this.scene.add(cellMesh);
+    this.cellMesh.instanceMatrix.needsUpdate = true;
+    if (this.cellMesh.instanceColor) {
+      this.cellMesh.instanceColor.needsUpdate = true;
+    }
   }
 
   setCellPositionMatrix(matrix, cell) {
-    let position = new THREE.Vector3();
-    let rotation = new THREE.Euler();
-    let quaternion = new THREE.Quaternion();
-    let scale = new THREE.Vector3();
-
-    rotation.x, rotation.y, (rotation.z = 0);
-
-    position.x = cell.x;
-    position.y = cell.y;
-    position.z = cell.z;
-
-    quaternion.setFromEuler(rotation);
-
-    scale.x = scale.y = scale.z = 1;
-
+    const position = new THREE.Vector3(cell.x, cell.y, cell.z);
+    const quaternion = new THREE.Quaternion();
+    const scale = new THREE.Vector3(1, 1, 1);
     matrix.compose(position, quaternion, scale);
-  }
-
-  resetGrid() {
-    const cellMeshes = [];
-
-    this.scene.traverse((cellMesh) => {
-      if (cellMesh.isMesh) cellMeshes.push(cellMesh);
-    });
-
-    cellMeshes.forEach((cellMesh) => {
-      cellMesh.material.dispose();
-      cellMesh.geometry.dispose();
-
-      this.scene.remove(cellMesh);
-    });
   }
 }

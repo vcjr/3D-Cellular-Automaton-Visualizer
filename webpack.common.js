@@ -1,13 +1,12 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const outputDir = "./dist";
 
 module.exports = {
-  entry: path.resolve(__dirname, "src", "index.js"), 
+  entry: path.resolve(__dirname, "src", "index.js"),
   output: {
-    path: path.join(__dirname, outputDir),
-    filename: "[name].js",
-    publicPath: "/dist/",
+    path: path.join(__dirname, "dist"),
+    filename: "main.js",
+    clean: true,
   },
   resolve: {
     extensions: [".js"],
@@ -16,77 +15,50 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
+        exclude: /node_modules/,
         use: {
           loader: "babel-loader",
           options: {
             presets: ["@babel/preset-env"],
-            exclude: /node_modules/,
           },
         },
       },
       {
         test: /\.css$/,
         use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              publicPath: "../",
-              hmr: process.env.NODE_ENV === "development",
-            },
-          },
+          MiniCssExtractPlugin.loader,
           "css-loader",
           "postcss-loader",
+        ],
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "postcss-loader",
+          "sass-loader",
         ],
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
-        use: [
-          {
-            loader: "file-loader",
-            options: {
-              name: "[name].[ext]",
-              outputPath: "images/",
-              publicPath: "images/",
-            },
-          },
-        ],
+        type: "asset/resource",
+        generator: {
+          filename: "images/[name][ext]",
+        },
       },
       {
-        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-        use: [
-          {
-            loader: "file-loader",
-            options: {
-              name: "[name].[ext]",
-              outputPath: "fonts/",
-              publicPath: "fonts/",
-            },
-          },
-        ],
-      },
-      {
-        test: /\.scss/,
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              publicPath: "../",
-              hmr: process.env.NODE_ENV === "development",
-            },
-          },
-          "css-loader",
-          "sass-loader",
-          "postcss-loader",
-        ],
+        test: /\.(woff2?|ttf|eot|svg)$/,
+        type: "asset/resource",
+        generator: {
+          filename: "fonts/[name][ext]",
+        },
       },
     ],
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "[name].css",
-      chunkFilename: "[id].css",
-      ignoreOrder: false,
+      filename: "main.css",
     }),
-    require("autoprefixer"),
   ],
 };
